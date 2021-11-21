@@ -10,9 +10,10 @@ public class TaleManager : MonoBehaviour
     public GameObject ContentScroll;
     public GameObject ContentScrollItem;
 
+    public GameObject CurrentTarget;
+
     void Start()
     {
-
         int i = 0;
         float imageHeight = 58;
 
@@ -25,8 +26,9 @@ public class TaleManager : MonoBehaviour
             GameObject obj = Instantiate(ContentScrollItem, ContentScroll.transform);
             obj.transform.localPosition = changeY(obj.transform.localPosition, obj.transform.localPosition.y - i * imageHeight);
             obj.GetComponent<RawImage>().texture = img;
-            i++;
+            obj.GetComponent<PreviewSceneObject>().sceneObject = child.gameObject;
             child.gameObject.SetActive(false);
+            i++;
         }
     }
 

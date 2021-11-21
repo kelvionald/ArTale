@@ -31,7 +31,6 @@ public class MoveObj : MonoBehaviour
                 rot.z = hit.point.z;
                 rot.x = hit.point.x;
                 transform.position = new Vector3(rot.x, transform.position.y, rot.z);
-
             }
         }
     }
