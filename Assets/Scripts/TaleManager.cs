@@ -6,19 +6,25 @@ using UnityEngine.UI;
 
 public class TaleManager : MonoBehaviour
 {
-    public GameObject[] ImageTargets;
+    public GameObject TextSceneNumber;
     public GameObject CurrentTarget;
     public int CurrentScene = 1;
     public int MaxScene = 4;
 
     void Start()
     {
-        CurrentScene = 1;
         RenderScene();
     }
 
     private void RenderScene()
     {
-        CurrentTarget.GetComponent<Text>().text = "Scene " + CurrentScene + "/" + MaxScene;
+        TextSceneNumber.GetComponent<Text>().text = "Scene " + CurrentScene + "/" + MaxScene;
+    }
+
+    internal void ChangeScene(int sceneNumber, GameObject Target)
+    {
+        CurrentTarget = Target;
+        CurrentScene = sceneNumber;
+        RenderScene();
     }
 }
