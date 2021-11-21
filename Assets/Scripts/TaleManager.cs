@@ -25,6 +25,7 @@ public class TaleManager : MonoBehaviour
             obj.transform.localPosition = changeY(obj.transform.localPosition, -i * imageHeight - offset);
             obj.GetComponent<RawImage>().texture = img;
             i++;
+            child.gameObject.SetActive(false);
         }
     }
 
