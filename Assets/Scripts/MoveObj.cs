@@ -8,13 +8,6 @@ public class MoveObj : MonoBehaviour
     private RaycastHit hit;
     private Vector3 rot = new Vector3(0, 0, 0);
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
     void Update()
     {
         if (Input.GetMouseButton(0))
@@ -26,7 +19,7 @@ public class MoveObj : MonoBehaviour
             }
             ray = ar.ScreenPointToRay(Input.mousePosition);
             
-            if (Physics.Raycast(ray, out hit))
+            if (Physics.Raycast(ray, out hit) && hit.collider.gameObject == this.gameObject)
             {
                 rot.z = hit.point.z;
                 rot.x = hit.point.x;
