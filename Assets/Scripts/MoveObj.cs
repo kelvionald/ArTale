@@ -20,6 +20,10 @@ public class MoveObj : MonoBehaviour
         if (Input.GetMouseButton(0))
         {
             Camera ar = Camera.current;
+            if (ar == null)
+            {
+                return;
+            }
             ray = ar.ScreenPointToRay(Input.mousePosition);
             
             if (Physics.Raycast(ray, out hit))
