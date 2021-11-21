@@ -5,7 +5,6 @@ using UnityEngine.UI;
 
 public class DrawPreviewSceneObjects : MonoBehaviour
 {
-    public GameObject[] ImageTargets;
     public GameObject ObjectsForScene;
     public GameObject ContentScroll;
     public GameObject ContentScrollItem;
