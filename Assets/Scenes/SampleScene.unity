@@ -2484,6 +2484,7 @@ GameObject:
   - component: {fileID: 1630981333}
   - component: {fileID: 1630981332}
   - component: {fileID: 1630981337}
+  - component: {fileID: 1630981338}
   m_Layer: 0
   m_Name: ARCamera
   m_TagString: MainCamera
@@ -2603,6 +2604,22 @@ MonoBehaviour:
   ContentScroll: {fileID: 1237421757}
   ContentScrollItem: {fileID: 7052472609107669849, guid: a01b48aad70ca2b4ca81e42893f42895, type: 3}
   CurrentTarget: {fileID: 1748204337}
+--- !u!114 &1630981338
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1630981331}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 45df09cccb86b304db459085f774990a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ImageTargets: []
+  ObjectsForScene: {fileID: 695419074}
+  ContentScroll: {fileID: 1237421757}
+  ContentScrollItem: {fileID: 7052472609107669849, guid: a01b48aad70ca2b4ca81e42893f42895, type: 3}
 --- !u!21 &1695161143
 Material:
   serializedVersion: 6
