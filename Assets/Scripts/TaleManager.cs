@@ -12,9 +12,10 @@ public class TaleManager : MonoBehaviour
 
     void Start()
     {
+
         int i = 0;
-        float offset = 6;
         float imageHeight = 58;
+
         foreach (Transform child in ObjectsForScene.transform)
         {
             if (null == child)
@@ -22,7 +23,7 @@ public class TaleManager : MonoBehaviour
 
             Texture2D img = RuntimePreviewGenerator.GenerateModelPreview(child);
             GameObject obj = Instantiate(ContentScrollItem, ContentScroll.transform);
-            obj.transform.localPosition = changeY(obj.transform.localPosition, -i * imageHeight - offset);
+            obj.transform.localPosition = changeY(obj.transform.localPosition, obj.transform.localPosition.y - i * imageHeight);
             obj.GetComponent<RawImage>().texture = img;
             i++;
             child.gameObject.SetActive(false);
@@ -31,7 +32,7 @@ public class TaleManager : MonoBehaviour
 
     Vector3 changeY(Vector3 position, float changeY)
     {
-        return new Vector3(position.x, position.y + changeY, position.z);
+        return new Vector3(position.x, changeY, position.z);
     }
 
     // Update is called once per frame
