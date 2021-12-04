@@ -24,6 +24,9 @@ public class TaleManager : MonoBehaviour
 
     public int LastSceneNumber;
 
+
+    public GameObject canvas;
+
     void Start()
     {
         LastSceneNumber = 1;
@@ -65,6 +68,7 @@ public class TaleManager : MonoBehaviour
         }
 
         btnScene.GetComponent<ButtonScene>().Init(scene, this, currentSceneIsNull, LastSceneNumber);
+        btnScene.GetComponent<ButtonScene>().canvas = canvas;
 
         LastSceneNumber++;
     }

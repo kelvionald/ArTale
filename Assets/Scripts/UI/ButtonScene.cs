@@ -2,9 +2,10 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class ButtonScene : MonoBehaviour
+public class ButtonScene : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
 {
     public GameObject Scene;
     public TaleManager taleManager;
@@ -17,6 +18,11 @@ public class ButtonScene : MonoBehaviour
 
     public int LastSceneNumber;
 
+    public bool IsMoving = false;
+
+
+    public GameObject canvas;
+
     void Start()
     {
         ColorUtility.TryParseHtmlString("#92FF93", out ColorCurrentScene);
@@ -24,6 +30,7 @@ public class ButtonScene : MonoBehaviour
         ColorUtility.TryParseHtmlString("#FFFFFF", out ColorUnselecredScene);
 
         GetComponent<Button>().onClick.AddListener(OnClick);
+        //GetComponent<Button>().OnMove
 
         toggleSelection(false);
     }
@@ -33,9 +40,34 @@ public class ButtonScene : MonoBehaviour
         taleManager.SelectSceneBtn(this, Scene);
     }
 
-    public void Init(GameObject SceneParent, TaleManager taleManager, bool IsCurrent, int SceneId)
+    public void OnPointerDown(PointerEventData eventData)
     {
-        this.Scene = SceneParent;
+        Debug.Log("down");
+        IsMoving = true;
+    }
+
+    public void OnPointerUp(PointerEventData eventData)
+    {
+        Debug.Log("up");
+        IsMoving = false;
+    }
+
+    public void Update()
+    {
+        if (IsMoving)
+        {
+            Vector2 _pos = Vector2.one;
+            RectTransformUtility.ScreenPointToLocalPointInRectangle(canvas.transform as RectTransform,
+                Input.mousePosition, canvas.GetComponent<Canvas>().worldCamera, out _pos);
+            Debug.Log("pos:" + _pos);
+            transform.localPosition = _pos;
+
+        }
+    }
+
+    public void Init(GameObject Scene, TaleManager taleManager, bool IsCurrent, int SceneId)
+    {
+        this.Scene = Scene;
         this.taleManager = taleManager;
         this.IsCurrent = IsCurrent;
         this.SceneId = SceneId;
