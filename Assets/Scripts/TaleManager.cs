@@ -77,11 +77,11 @@ public class TaleManager : MonoBehaviour
             return;
         }
         Debug.Log("SelectedId " + SelectedBtnScene.SceneId);
-        CurrentScene = SelectedBtnScene.SceneParent;
+        CurrentScene = SelectedBtnScene.Scene;
         RenderScene(SelectedBtnScene.SceneId);
         foreach (Transform scene in ImgTarget.transform)
         {
-            scene.gameObject.SetActive(scene.gameObject == SelectedBtnScene.SceneParent);
+            scene.gameObject.SetActive(scene.gameObject == SelectedBtnScene.Scene);
         }
         foreach (Transform sceneBtn in PanelScenesGraph.transform)
         {
@@ -98,7 +98,7 @@ public class TaleManager : MonoBehaviour
         {
             return;
         }
-        Destroy(SelectedBtnScene.SceneParent);
+        Destroy(SelectedBtnScene.Scene);
         Destroy(SelectedBtnScene.gameObject);
     }
 

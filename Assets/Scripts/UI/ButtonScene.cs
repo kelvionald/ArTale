@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 public class ButtonScene : MonoBehaviour
 {
-    public GameObject SceneParent;
+    public GameObject Scene;
     public TaleManager taleManager;
     public bool IsCurrent = false;
     public int SceneId = 0;
@@ -30,12 +30,12 @@ public class ButtonScene : MonoBehaviour
 
     private void OnClick()
     {
-        taleManager.SelectSceneBtn(this, SceneParent);
+        taleManager.SelectSceneBtn(this, Scene);
     }
 
     public void Init(GameObject SceneParent, TaleManager taleManager, bool IsCurrent, int SceneId)
     {
-        this.SceneParent = SceneParent;
+        this.Scene = SceneParent;
         this.taleManager = taleManager;
         this.IsCurrent = IsCurrent;
         this.SceneId = SceneId;
