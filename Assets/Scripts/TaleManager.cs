@@ -8,23 +8,27 @@ public class TaleManager : MonoBehaviour
 {
     public GameObject TextSceneNumber;
     public GameObject CurrentTarget;
-    public int CurrentScene = 1;
-    public int MaxScene = 4;
+    public Color SelecredScene;
+    public Color UnselecredScene;
+    public Color CurrentScene;
 
     void Start()
     {
+        ColorUtility.TryParseHtmlString("#92FF93", out CurrentScene);
+        ColorUtility.TryParseHtmlString("#8AB6FF", out SelecredScene);
+        ColorUtility.TryParseHtmlString("#FFFFFF", out UnselecredScene);
+
         RenderScene();
     }
 
     private void RenderScene()
     {
-        TextSceneNumber.GetComponent<InputField>().text = "Scene " + CurrentScene + "/" + MaxScene;
+        TextSceneNumber.GetComponent<InputField>().text = "Scene 1";
     }
 
     internal void ChangeScene(int sceneNumber, GameObject Target)
     {
         CurrentTarget = Target;
-        CurrentScene = sceneNumber;
         RenderScene();
     }
 }
