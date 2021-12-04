@@ -7,28 +7,110 @@ using UnityEngine.UI;
 public class TaleManager : MonoBehaviour
 {
     public GameObject TextSceneNumber;
-    public GameObject CurrentTarget;
-    public Color SelecredScene;
-    public Color UnselecredScene;
-    public Color CurrentScene;
+    public GameObject CurrentScene;
+
+    public ButtonScene SelectedBtnScene;
+
+    public GameObject ImgTarget;
+    public GameObject BtnScenes;
+
+    public GameObject BtnBack;
+    public GameObject BtnAdd;
+    public GameObject BtnShow;
+    public GameObject BtnRemove;
+    public GameObject PanelScenesManager;
+    public GameObject PanelScenesGraph;
+    public GameObject TmplBtnScene;
+
+    public int LastSceneNumber;
 
     void Start()
     {
-        ColorUtility.TryParseHtmlString("#92FF93", out CurrentScene);
-        ColorUtility.TryParseHtmlString("#8AB6FF", out SelecredScene);
-        ColorUtility.TryParseHtmlString("#FFFFFF", out UnselecredScene);
+        LastSceneNumber = 1;
 
-        RenderScene();
+        //PanelScenesManager.SetActive(false);
+
+        BtnScenes.GetComponent<Button>().onClick.AddListener(BtnScenesOnClick);
+        BtnBack.GetComponent<Button>().onClick.AddListener(BtnBackOnClick);
+        BtnAdd.GetComponent<Button>().onClick.AddListener(BtnAddOnClick);
+        BtnShow.GetComponent<Button>().onClick.AddListener(BtnShowOnClick);
+        BtnRemove.GetComponent<Button>().onClick.AddListener(BtnRemoveOnClick);
+
+        BtnAddOnClick(); // first scene
+
+        RenderScene(1);
     }
 
-    private void RenderScene()
+    private void BtnScenesOnClick()
     {
-        TextSceneNumber.GetComponent<InputField>().text = "Scene 1";
+        PanelScenesManager.SetActive(true);
     }
 
-    internal void ChangeScene(int sceneNumber, GameObject Target)
+    private void BtnBackOnClick()
     {
-        CurrentTarget = Target;
-        RenderScene();
+        PanelScenesManager.SetActive(false);
+    }
+
+    private void BtnAddOnClick()
+    {
+        GameObject btnScene = Instantiate(TmplBtnScene, PanelScenesGraph.transform);
+        btnScene.GetComponentInChildren<Text>().text = "Scene " + LastSceneNumber;
+
+        GameObject scene = Instantiate(new GameObject(), ImgTarget.transform);
+
+        bool currentSceneIsNull = CurrentScene == null;
+        if (currentSceneIsNull)
+        {
+            CurrentScene = scene;
+        }
+
+        btnScene.GetComponent<ButtonScene>().Init(scene, this, currentSceneIsNull, LastSceneNumber);
+
+        LastSceneNumber++;
+    }
+
+    private void BtnShowOnClick()
+    {
+        if (SelectedBtnScene == null)
+        {
+            return;
+        }
+        Debug.Log("SelectedId " + SelectedBtnScene.SceneId);
+        CurrentScene = SelectedBtnScene.SceneParent;
+        RenderScene(SelectedBtnScene.SceneId);
+        foreach (Transform scene in ImgTarget.transform)
+        {
+            scene.gameObject.SetActive(scene.gameObject == SelectedBtnScene.SceneParent);
+        }
+        foreach (Transform sceneBtn in PanelScenesGraph.transform)
+        {
+            var tmpBtnScene = sceneBtn.GetComponent<ButtonScene>();
+            tmpBtnScene.IsCurrent = tmpBtnScene == SelectedBtnScene;
+            tmpBtnScene.toggleSelection(false);
+        }
+        BtnBackOnClick();
+    }
+
+    private void BtnRemoveOnClick()
+    {
+
+    }
+
+    private void RenderScene(int id)
+    {
+        TextSceneNumber.GetComponent<InputField>().text = "Scene " + id;
+    }
+
+    internal void SelectSceneBtn(ButtonScene buttonScene, GameObject sceneParent)
+    {
+        SelectedBtnScene = buttonScene;
+        foreach (Transform btn in PanelScenesGraph.transform)
+        {
+            var btnScene = btn.gameObject.GetComponent<ButtonScene>();
+            if (btnScene != null)
+            {
+                btnScene.toggleSelection(btnScene == buttonScene);
+            }
+        }
     }
 }
