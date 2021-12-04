@@ -73,6 +73,7 @@ public class TaleManager : MonoBehaviour
     {
         if (SelectedBtnScene == null)
         {
+            BtnBackOnClick();
             return;
         }
         Debug.Log("SelectedId " + SelectedBtnScene.SceneId);
@@ -93,7 +94,12 @@ public class TaleManager : MonoBehaviour
 
     private void BtnRemoveOnClick()
     {
-
+        if (SelectedBtnScene == null)
+        {
+            return;
+        }
+        Destroy(SelectedBtnScene.SceneParent);
+        Destroy(SelectedBtnScene.gameObject);
     }
 
     private void RenderScene(int id)
