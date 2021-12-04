@@ -18,7 +18,7 @@ public class TaleManager : MonoBehaviour
 
     private void RenderScene()
     {
-        TextSceneNumber.GetComponent<Text>().text = "Scene " + CurrentScene + "/" + MaxScene;
+        TextSceneNumber.GetComponent<InputField>().text = "Scene " + CurrentScene + "/" + MaxScene;
     }
 
     internal void ChangeScene(int sceneNumber, GameObject Target)
