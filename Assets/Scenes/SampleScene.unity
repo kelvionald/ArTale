@@ -1403,7 +1403,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 'Remove
+  m_Text: 'Remove -
 
 '
 --- !u!222 &772944958
@@ -2047,7 +2047,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Add
+  m_Text: Add +
 --- !u!222 &1138553482
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -3008,7 +3008,6 @@ MonoBehaviour:
   TextSceneNumber: {fileID: 670952340}
   CurrentScene: {fileID: 0}
   SelectedBtnScene: {fileID: 0}
-  SelectedScene: {fileID: 0}
   ImgTarget: {fileID: 1748204337}
   BtnScenes: {fileID: 808596058}
   BtnBack: {fileID: 944675462}
