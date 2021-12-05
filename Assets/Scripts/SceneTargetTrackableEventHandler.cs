@@ -1,30 +1,24 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class SceneTargetTrackableEventHandler : DefaultTrackableEventHandler
 {
+    public GameObject TargetStatus;
+
     protected override void OnTrackingFound()
     {
-        var rendererComponents = GetComponentsInChildren<Renderer>(true);
+        /*var rendererComponents = GetComponentsInChildren<Renderer>(true);
         foreach (var component in rendererComponents)
         {
             component.enabled = true;
-        }
-        ChangeScene();
+        }*/
+        TargetStatus.GetComponent<Text>().text = "<color=#4caf50>Found</color>";
     }
 
     protected override void OnTrackingLost()
     {
-        var rendererComponents = GetComponentsInChildren<Renderer>(true);
-        foreach (var component in rendererComponents)
-        {
-            component.enabled = false;
-        }
-    }
-
-    private void ChangeScene()
-    {
-        //Camera.main.GetComponent<TaleManager>().ChangeScene(SceneNumber, this.gameObject);
+        TargetStatus.GetComponent<Text>().text = "<color=#f44336>Lost</color>";
     }
 }
