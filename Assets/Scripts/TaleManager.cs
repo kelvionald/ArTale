@@ -28,7 +28,7 @@ public class TaleManager : MonoBehaviour
     {
         LastSceneNumber = 1;
 
-        //PanelScenesManager.SetActive(false);
+        PanelScenesManager.SetActive(false);
 
         BtnScenes.GetComponent<Button>().onClick.AddListener(BtnScenesOnClick);
         BtnBack.GetComponent<Button>().onClick.AddListener(BtnBackOnClick);
