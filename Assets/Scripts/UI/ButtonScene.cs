@@ -21,7 +21,7 @@ public class ButtonScene : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
     public bool IsMoving = false;
 
 
-    public GameObject canvas;
+    public Canvas canvas;
 
     void Start()
     {
@@ -29,21 +29,16 @@ public class ButtonScene : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
         ColorUtility.TryParseHtmlString("#8AB6FF", out ColorSelectedScene);
         ColorUtility.TryParseHtmlString("#FFFFFF", out ColorUnselecredScene);
 
-        GetComponent<Button>().onClick.AddListener(OnClick);
-        //GetComponent<Button>().OnMove
+        canvas = GameObject.Find("Canvas").GetComponent<Canvas>();
 
         toggleSelection(false);
-    }
-
-    private void OnClick()
-    {
-        taleManager.SelectSceneBtn(this, Scene);
     }
 
     public void OnPointerDown(PointerEventData eventData)
     {
         Debug.Log("down");
         IsMoving = true;
+        taleManager.SelectSceneBtn(this, Scene);
     }
 
     public void OnPointerUp(PointerEventData eventData)
@@ -56,11 +51,11 @@ public class ButtonScene : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
     {
         if (IsMoving)
         {
-            Vector2 _pos = Vector2.one;
-            RectTransformUtility.ScreenPointToLocalPointInRectangle(canvas.transform as RectTransform,
-                Input.mousePosition, canvas.GetComponent<Canvas>().worldCamera, out _pos);
-            Debug.Log("pos:" + _pos);
-            transform.localPosition = _pos;
+            Vector2 pos = Vector2.one;
+            RectTransformUtility.ScreenPointToLocalPointInRectangle(canvas.transform as RectTransform, Input.mousePosition, canvas.worldCamera, out pos);
+            pos.y += 40;
+            Debug.Log("pos:" + pos);
+            transform.localPosition = pos;
 
         }
     }
