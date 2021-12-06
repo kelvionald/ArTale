@@ -51,6 +51,11 @@ public class TaleManager : MonoBehaviour
         PanelScenesManager.SetActive(false);
     }
 
+    internal void SaveScene()
+    {
+        throw new NotImplementedException();
+    }
+
     private void BtnAddOnClick()
     {
         GameObject btnScene = Instantiate(TmplBtnScene, PanelScenesGraph.transform);
