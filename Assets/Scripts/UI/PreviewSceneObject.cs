@@ -31,4 +31,15 @@ public class PreviewSceneObject : MonoBehaviour
         //Debug.Log(hit.point);
         //Debug.Log(obj.transform.position);
     }
+
+    // test
+    bool a = false;
+    void Update()
+    {
+        if (!a)
+        {
+            a = true;
+            OnMouseUp();
+        }
+    }
 }

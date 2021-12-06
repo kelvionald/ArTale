@@ -1,3 +1,4 @@
+using Assets.Scripts;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -42,6 +43,9 @@ public class MenuManager : MonoBehaviour
         {
             return;
         }
+
+        TaleModel taleModel = new TaleModel();
+        taleModel.Save(sceneName, GetComponent<TaleManager>());
 
         InputFieldTaleLinkOutput.GetComponent<InputField>().text = "1"; // TODO tale link 
     }

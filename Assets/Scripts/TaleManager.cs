@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -49,11 +50,6 @@ public class TaleManager : MonoBehaviour
     private void BtnBackOnClick()
     {
         PanelScenesManager.SetActive(false);
-    }
-
-    internal void SaveScene()
-    {
-        throw new NotImplementedException();
     }
 
     private void BtnAddOnClick()
