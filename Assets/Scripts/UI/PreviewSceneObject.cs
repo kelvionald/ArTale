@@ -39,7 +39,7 @@ public class PreviewSceneObject : MonoBehaviour
         if (!a)
         {
             a = true;
-            OnMouseUp();
+            //OnMouseUp();
         }
     }
 }

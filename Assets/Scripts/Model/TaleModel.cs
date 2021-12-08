@@ -1,4 +1,5 @@
 ﻿using Assets.Scripts.Model;
+using Assets.Scripts.Model.Converters;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -49,13 +50,30 @@ namespace Assets.Scripts
             List<Obj> objs = new List<Obj>();
             foreach (Transform _obj in _scene.transform)
             {
-                Obj obj = new Obj();
-                obj.position = _obj.gameObject.transform.position;
-                obj.rotation = _obj.gameObject.transform.rotation;
-                obj.localScale = _obj.gameObject.transform.localScale;
+                Obj obj = PackObj(_obj.gameObject);
+                obj.children = SerializeObj(_obj);
                 objs.Add(obj);
             }
             return objs;
+        }
+
+        private Obj PackObj(GameObject gameObject)
+        {
+            Obj obj = new Obj();
+            
+            // common
+            obj.position = gameObject.transform.position;
+            obj.rotation = gameObject.transform.rotation;
+            obj.localScale = gameObject.transform.localScale;
+
+            // mesh
+            if (gameObject.GetComponent<MeshFilter>() != null)
+            {
+                obj.meshSer = MeshConverter.Serialize(gameObject.GetComponent<MeshFilter>());
+                Debug.Log(JsonUtility.ToJson(obj.meshSer));
+            }
+
+            return obj;
         }
     }
 }
