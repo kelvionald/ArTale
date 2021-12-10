@@ -21,7 +21,10 @@ namespace Assets.Scripts
 
         private void WriteFile(string sceneName, Tale tale)
         {
-            string path = Application.persistentDataPath + "/" + sceneName + ".json";
+            string savePath = Application.persistentDataPath + "/Saves/";
+            Utils.TapDirectory(savePath);
+
+            string path = savePath + sceneName + ".json";
             string json = JsonUtility.ToJson(tale);
             Debug.Log(path);
             File.WriteAllText(path, json);
