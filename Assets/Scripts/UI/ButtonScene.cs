@@ -51,12 +51,15 @@ public class ButtonScene : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
     {
         if (IsMoving)
         {
+            /*
             Vector2 pos = Vector2.one;
             RectTransformUtility.ScreenPointToLocalPointInRectangle(canvas.transform as RectTransform, Input.mousePosition, canvas.worldCamera, out pos);
             pos.y += 40;
             Debug.Log("pos:" + pos);
             transform.localPosition = pos;
+            */ // Screen Space - Camera
 
+            transform.position = Input.mousePosition; // Screen Space - Overlay
         }
     }
 
