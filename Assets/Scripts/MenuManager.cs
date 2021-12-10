@@ -16,14 +16,25 @@ public class MenuManager : MonoBehaviour
     public GameObject InputFieldTaleLinkOutput;
     public GameObject ButtonCopyLink;
 
+    public GameObject ButtonLoadModels;
+
     void Start()
     {
+        Utils.Init();
+
         PanelMenu.SetActive(false);
         BtnMenu.GetComponent<Button>().onClick.AddListener(OnClickMenu);
         BtnCloseMenu.GetComponent<Button>().onClick.AddListener(OnClickMenuClose);
 
         BtnSaveTale.GetComponent<Button>().onClick.AddListener(OnClickSaveTale);
         ButtonCopyLink.GetComponent<Button>().onClick.AddListener(OnClickCopyLink);
+
+        ButtonLoadModels.GetComponent<Button>().onClick.AddListener(OnClickLoadModels);
+    }
+
+    private void OnClickLoadModels()
+    {
+        
     }
 
     private void OnClickCopyLink()
