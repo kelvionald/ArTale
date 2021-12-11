@@ -2,3 +2,4 @@ https://github.com/yasirkula/UnityRuntimePreviewGenerator
 https://www.programmersought.com/article/72826703238/
 https://theslidefactory.com/loading-3d-models-from-the-web-at-runtime-in-unity/
 https://github.com/jilleJr/Newtonsoft.Json-for-Unity
+https://habr.com/ru/post/428796/
