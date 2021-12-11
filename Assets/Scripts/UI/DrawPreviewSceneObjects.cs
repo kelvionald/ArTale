@@ -11,8 +11,18 @@ public class DrawPreviewSceneObjects : MonoBehaviour
 
     void Start()
     {
+        RenderObjectsPreview();
+    }
+
+    public void RenderObjectsPreview()
+    {
         int i = 0;
         float imageHeight = 58;
+
+        foreach (Transform child in ContentScroll.transform)
+        {
+            Destroy(child.gameObject);
+        }
 
         foreach (Transform child in ObjectsForScene.transform)
         {

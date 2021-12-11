@@ -11,8 +11,9 @@ namespace Assets.Scripts
     class Utils
     {
         public static string PathSaves = Application.persistentDataPath + "/Saves/";
-        public static string PathModelsWindows = "/storage/emulated/0/ArTale/"; // for load models win
-        public static string PathModelsAndroid = "/storage/emulated/0/ArTale/"; // for load models android
+        public static string PathModelsWindows = Application.persistentDataPath + "/Models/"; // for load models win
+        public static string PathRootAndroid = "/storage/emulated/0/ArTale/"; // project android root
+        public static string PathModelsAndroid = PathRootAndroid + "Models/"; // for load models android
 
         public static void TapDirectory(string path)
         {
@@ -25,7 +26,8 @@ namespace Assets.Scripts
         internal static void Init()
         {
             TapDirectory(PathSaves);
-            TapDirectory(PathModelsAndroid);
+            TapDirectory(PathRootAndroid);
+            TapDirectory(CalcModelsLoadPath());
         }
 
         internal static string CalcModelsLoadPath()

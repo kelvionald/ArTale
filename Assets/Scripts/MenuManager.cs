@@ -86,11 +86,10 @@ public class MenuManager : MonoBehaviour
             foreach (string path in paths)
             {
                 GameObject model = Importer.LoadFromFile(path);
-                Debug.Log(model);
-                Debug.Log(ObjectsForScene);
-                Debug.Log(transform);
                 model.transform.SetParent(ObjectsForScene.transform);
+                model.transform.localScale = new Vector3(0.2f, 0.2f, 0.2f);
             }
+            GetComponent<DrawPreviewSceneObjects>().RenderObjectsPreview();
         }
     }
 
