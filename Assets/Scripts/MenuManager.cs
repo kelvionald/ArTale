@@ -77,7 +77,8 @@ public class MenuManager : MonoBehaviour
             return;
         }
 
-        string modelDir = EditorUtility.OpenFolderPanel("Folder with *.gltf models", "", "");
+        //string modelDir = EditorUtility.OpenFolderPanel("Folder with *.gltf models", "", "");
+        string modelDir = Utils.CalcModelsLoadPath();
         if (modelDir.Length != 0)
         {
             Debug.Log(modelDir);

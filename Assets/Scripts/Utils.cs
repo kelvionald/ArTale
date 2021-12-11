@@ -11,6 +11,8 @@ namespace Assets.Scripts
     class Utils
     {
         public static string PathSaves = Application.persistentDataPath + "/Saves/";
+        public static string PathModelsWindows = "/storage/emulated/0/ArTale/"; // for load models win
+        public static string PathModelsAndroid = "/storage/emulated/0/ArTale/"; // for load models android
 
         public static void TapDirectory(string path)
         {
@@ -23,6 +25,19 @@ namespace Assets.Scripts
         internal static void Init()
         {
             TapDirectory(PathSaves);
+            TapDirectory(PathModelsAndroid);
+        }
+
+        internal static string CalcModelsLoadPath()
+        {
+            if (Application.platform == RuntimePlatform.WindowsEditor)
+            {
+                return PathModelsWindows;
+            }
+            else
+            {
+                return PathModelsAndroid;
+            }
         }
     }
 }
