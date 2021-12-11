@@ -21,7 +21,9 @@ namespace Assets.Scripts
 
         private void WriteFile(string sceneName, Tale tale)
         {
-            string path = Utils.PathSaves + sceneName + ".json";
+            string talePath = Utils.PathSaves + sceneName + "/";
+            Utils.TapDirectory(talePath);
+            string path = talePath + "tale.json";
             string json = JsonUtility.ToJson(tale);
             Debug.Log(path);
             File.WriteAllText(path, json);
@@ -32,9 +34,22 @@ namespace Assets.Scripts
             file.Close();*/
         }
 
+        public static long ConvertToUnixTime(DateTime datetime)
+        {
+            DateTime sTime = new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc);
+            return (long)(datetime - sTime).TotalSeconds;
+        }
+
+        public static DateTime UnixTimeToDateTime(long unixtime)
+        {
+            DateTime sTime = new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc);
+            return sTime.AddSeconds(unixtime);
+        }
+
         private Tale Serialize(TaleManager taleManager)
         {
             Tale tale = new Tale();
+            tale.Edited = ConvertToUnixTime(DateTime.Now);
             foreach (Transform _scene in taleManager.ImgTarget.transform)
             {
                 Scene scene = new Scene();

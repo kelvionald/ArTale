@@ -11,6 +11,7 @@ namespace Assets.Scripts
     [Serializable]
     public class Tale
     {
+        public long Edited;
         public List<Scene> scenes = new List<Scene>();
     }
 }

@@ -1,7 +1,10 @@
 using Assets.Scripts;
+using Siccity.GLTFUtility;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -16,13 +19,26 @@ public class MenuManager : MonoBehaviour
     public GameObject InputFieldTaleLinkOutput;
     public GameObject ButtonCopyLink;
 
+    public GameObject BtnSaveTaleOnServer;
+    public GameObject BtnLoadTaleFromServer;
+
     public GameObject ButtonLoadModels;
+
+    public GameObject PanelMessage;
+    public GameObject ButtonOk;
+    public GameObject LabelMessage;
+
+    public GameObject ObjectsForScene;
+
+    public string TaleName;
 
     void Start()
     {
         Utils.Init();
 
         PanelMenu.SetActive(false);
+        PanelMessage.SetActive(false);
+
         BtnMenu.GetComponent<Button>().onClick.AddListener(OnClickMenu);
         BtnCloseMenu.GetComponent<Button>().onClick.AddListener(OnClickMenuClose);
 
@@ -30,11 +46,51 @@ public class MenuManager : MonoBehaviour
         ButtonCopyLink.GetComponent<Button>().onClick.AddListener(OnClickCopyLink);
 
         ButtonLoadModels.GetComponent<Button>().onClick.AddListener(OnClickLoadModels);
+
+        BtnSaveTaleOnServer.GetComponent<Button>().onClick.AddListener(OnClickSaveOnServer);
+        BtnLoadTaleFromServer.GetComponent<Button>().onClick.AddListener(OnClickLoadFromServer);
+
+        ButtonOk.GetComponent<Button>().onClick.AddListener(OnClickOk);
+    }
+
+    private void OnClickLoadFromServer()
+    {
+        
+    }
+
+    private void OnClickSaveOnServer()
+    {
+        
+    }
+
+    private void OnClickOk()
+    {
+        PanelMessage.SetActive(false);
     }
 
     private void OnClickLoadModels()
     {
-        
+        if (TaleName == null || TaleName.Length == 0)
+        {
+            PanelMessage.SetActive(true);
+            LabelMessage.GetComponent<Text>().text = "Set a name for the tale and save it before doing so.";
+            return;
+        }
+
+        string modelDir = EditorUtility.OpenFolderPanel("Folder with *.gltf models", "", "");
+        if (modelDir.Length != 0)
+        {
+            Debug.Log(modelDir);
+            var paths = Directory.GetFiles(modelDir, "*.gltf", SearchOption.TopDirectoryOnly);
+            foreach (string path in paths)
+            {
+                GameObject model = Importer.LoadFromFile(path);
+                Debug.Log(model);
+                Debug.Log(ObjectsForScene);
+                Debug.Log(transform);
+                model.transform.SetParent(ObjectsForScene.transform);
+            }
+        }
     }
 
     private void OnClickCopyLink()
@@ -49,14 +105,15 @@ public class MenuManager : MonoBehaviour
 
     private void OnClickSaveTale()
     {
-        string sceneName = InputFieldTaleName.GetComponent<InputField>().text;
-        if (sceneName.Length == 0)
+        string taleName = InputFieldTaleName.GetComponent<InputField>().text;
+        if (taleName.Length == 0)
         {
             return;
         }
+        TaleName = taleName;
 
         TaleModel taleModel = new TaleModel();
-        taleModel.Save(sceneName, GetComponent<TaleManager>());
+        taleModel.Save(TaleName, GetComponent<TaleManager>());
 
         InputFieldTaleLinkOutput.GetComponent<InputField>().text = "1"; // TODO tale link 
     }

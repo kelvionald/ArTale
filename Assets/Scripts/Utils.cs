@@ -11,7 +11,6 @@ namespace Assets.Scripts
     class Utils
     {
         public static string PathSaves = Application.persistentDataPath + "/Saves/";
-        //public static string PathModels = Application.persistentDataPath + "/Models/";
 
         public static void TapDirectory(string path)
         {
@@ -23,7 +22,6 @@ namespace Assets.Scripts
 
         internal static void Init()
         {
-            //TapDirectory(PathModels);
             TapDirectory(PathSaves);
         }
     }
