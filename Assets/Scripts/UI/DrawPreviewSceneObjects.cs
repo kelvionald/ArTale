@@ -9,6 +9,8 @@ public class DrawPreviewSceneObjects : MonoBehaviour
     public GameObject ContentScroll;
     public GameObject ContentScrollItem;
 
+  //  public List<GameObject> Previews = new List<GameObject>();
+
     void Start()
     {
         RenderObjectsPreview();
@@ -19,10 +21,17 @@ public class DrawPreviewSceneObjects : MonoBehaviour
         int i = 0;
         float imageHeight = 58;
 
-        foreach (Transform child in ContentScroll.transform)
+        foreach (Transform child2 in ContentScroll.transform)
+        {
+            Destroy(child2.gameObject);
+        }
+
+        foreach (Transform child in ObjectsForScene.transform)
         {
             Destroy(child.gameObject);
         }
+
+        //Previews.Clear();
 
         foreach (Transform child in ObjectsForScene.transform)
         {
@@ -34,7 +43,8 @@ public class DrawPreviewSceneObjects : MonoBehaviour
             obj.transform.localPosition = changeY(obj.transform.localPosition, obj.transform.localPosition.y - i * imageHeight);
             obj.GetComponent<RawImage>().texture = img;
             obj.GetComponent<PreviewSceneObject>().sceneObject = child.gameObject;
-            child.gameObject.SetActive(false);
+            //child.gameObject.SetActive(false); // test
+            //Previews.Add(obj);
             i++;
         }
     }
