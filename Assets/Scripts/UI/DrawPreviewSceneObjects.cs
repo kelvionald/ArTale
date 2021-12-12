@@ -9,8 +9,6 @@ public class DrawPreviewSceneObjects : MonoBehaviour
     public GameObject ContentScroll;
     public GameObject ContentScrollItem;
 
-  //  public List<GameObject> Previews = new List<GameObject>();
-
     void Start()
     {
         RenderObjectsPreview();
@@ -24,11 +22,6 @@ public class DrawPreviewSceneObjects : MonoBehaviour
         foreach (Transform child2 in ContentScroll.transform)
         {
             Destroy(child2.gameObject);
-        }
-
-        foreach (Transform child in ObjectsForScene.transform)
-        {
-            Destroy(child.gameObject);
         }
 
         //Previews.Clear();

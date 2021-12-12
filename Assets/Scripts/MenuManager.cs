@@ -81,6 +81,11 @@ public class MenuManager : MonoBehaviour
         string modelDir = Utils.CalcModelsLoadPath();
         if (modelDir.Length != 0)
         {
+            foreach (Transform child in ObjectsForScene.transform)
+            {
+                Destroy(child.gameObject);
+            }
+
             Debug.Log(modelDir);
             var paths = Directory.GetFiles(modelDir, "*.gltf", SearchOption.TopDirectoryOnly);
             foreach (string path in paths)
