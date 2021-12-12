@@ -88,6 +88,8 @@ public class MenuManager : MonoBehaviour
                 GameObject model = Importer.LoadFromFile(path);
                 model.transform.SetParent(ObjectsForScene.transform);
                 model.transform.localScale = new Vector3(0.2f, 0.2f, 0.2f);
+                model.AddComponent<BoxCollider>();
+                model.AddComponent<MoveObj>();
             }
             GetComponent<DrawPreviewSceneObjects>().RenderObjectsPreview();
         }
