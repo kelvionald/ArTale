@@ -25,6 +25,8 @@ public class TaleManager : MonoBehaviour
 
     public int LastSceneNumber;
 
+    public GameObject Grass;
+
     void Start()
     {
         LastSceneNumber = 1;
@@ -58,6 +60,7 @@ public class TaleManager : MonoBehaviour
         btnScene.GetComponentInChildren<Text>().text = "Scene " + LastSceneNumber;
 
         GameObject scene = Instantiate(new GameObject(), ImgTarget.transform);
+        GameObject grass = Instantiate(Grass, scene.transform);
 
         bool currentSceneIsNull = CurrentScene == null;
         if (currentSceneIsNull)
