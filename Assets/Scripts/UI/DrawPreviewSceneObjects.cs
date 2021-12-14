@@ -24,8 +24,6 @@ public class DrawPreviewSceneObjects : MonoBehaviour
             Destroy(child2.gameObject);
         }
 
-        //Previews.Clear();
-
         foreach (Transform child in ObjectsForScene.transform)
         {
             if (null == child)
@@ -36,8 +34,7 @@ public class DrawPreviewSceneObjects : MonoBehaviour
             obj.transform.localPosition = changeY(obj.transform.localPosition, obj.transform.localPosition.y - i * imageHeight);
             obj.GetComponent<RawImage>().texture = img;
             obj.GetComponent<PreviewSceneObject>().sceneObject = child.gameObject;
-            child.gameObject.SetActive(false); // test
-            //Previews.Add(obj);
+            child.gameObject.SetActive(false);
             i++;
         }
     }

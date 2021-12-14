@@ -7,26 +7,30 @@ public class MoveObj : MonoBehaviour
     private Ray ray;
     private RaycastHit hit;
     private Vector3 rot = new Vector3(0, 0, 0);
+    private Camera camera;
+
+    void Start()
+    {
+        camera = GameObject.Find("ARCamera").GetComponent<Camera>();
+    }
 
     void Update()
     {
         if (Input.GetMouseButton(0))
         {
-            Camera ar = Camera.current;
-            if (ar == null)
+            if (camera == null)
             {
                 return;
             }
 
-            GameObject CurrentMoveObj = ar.gameObject.GetComponent<MenuManager>().CurrentMoveObj;
-            if (CurrentMoveObj != null)
+            if (GetMenuManager().CurrentMoveObj != gameObject)
             {
-
+                return;
             }
 
-            ray = ar.ScreenPointToRay(Input.mousePosition);
+            ray = camera.ScreenPointToRay(Input.mousePosition);
             
-            if (Physics.Raycast(ray, out hit) && hit.collider.gameObject == this.gameObject)
+            if (Physics.Raycast(ray, out hit) && hit.collider.gameObject == gameObject)
             {
                 rot.z = hit.point.z;
                 rot.x = hit.point.x;
@@ -37,11 +41,19 @@ public class MoveObj : MonoBehaviour
 
     void OnMouseDown()
     {
-        Debug.Log(1);
+        if (GetMenuManager().CurrentMoveObj == null)
+        {
+            GetMenuManager().CurrentMoveObj = gameObject;
+        }
     }
 
     void OnMouseUp()
     {
-        Debug.Log(2);
+        GetMenuManager().CurrentMoveObj = null;
+    }
+
+    MenuManager GetMenuManager()
+    {
+        return camera.gameObject.GetComponent<MenuManager>();
     }
 }
