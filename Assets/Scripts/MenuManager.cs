@@ -33,6 +33,8 @@ public class MenuManager : MonoBehaviour
     public string TaleName;
     TaleModel TaleModelObj;
 
+    public GameObject CurrentMoveObj = null;
+
     void Start()
     {
         Utils.Init();

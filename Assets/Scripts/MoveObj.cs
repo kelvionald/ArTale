@@ -17,6 +17,13 @@ public class MoveObj : MonoBehaviour
             {
                 return;
             }
+
+            GameObject CurrentMoveObj = ar.gameObject.GetComponent<MenuManager>().CurrentMoveObj;
+            if (CurrentMoveObj != null)
+            {
+
+            }
+
             ray = ar.ScreenPointToRay(Input.mousePosition);
             
             if (Physics.Raycast(ray, out hit) && hit.collider.gameObject == this.gameObject)
@@ -26,5 +33,15 @@ public class MoveObj : MonoBehaviour
                 transform.position = new Vector3(rot.x, transform.position.y, rot.z);
             }
         }
+    }
+
+    void OnMouseDown()
+    {
+        Debug.Log(1);
+    }
+
+    void OnMouseUp()
+    {
+        Debug.Log(2);
     }
 }
