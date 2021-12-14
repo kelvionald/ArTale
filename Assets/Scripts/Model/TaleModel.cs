@@ -40,7 +40,7 @@ namespace Assets.Scripts
             string pathTale = pathTaleRoot + "tale.json";
             string pathModels = pathTaleRoot + "Models/";
             Utils.TapDirectory(pathModels);
-            string json = JsonUtility.ToJson(tale);
+            string json = JsonUtility.ToJson(tale, true);
             Debug.Log(pathTale);
             File.WriteAllText(pathTale, json);
 
@@ -81,31 +81,23 @@ namespace Assets.Scripts
             List<Obj> objs = new List<Obj>();
             foreach (Transform _obj in _scene.transform)
             {
-                Obj obj = PackObj(_obj.gameObject);
-                obj.children = SerializeObj(_obj);
+                if (_obj.GetComponent<MoveObj>() == null)
+                {
+                    continue;
+                }
+
+                Obj obj = new Obj();
+
+                // common
+                obj.position = _obj.transform.position;
+                obj.rotation = _obj.transform.rotation;
+                obj.localScale = _obj.transform.localScale;
+
+                obj.modelFilename = _obj.GetComponent<MoveObj>().ModelFilename;
+
                 objs.Add(obj);
             }
             return objs;
-        }
-
-        private Obj PackObj(GameObject gameObject)
-        {
-            Obj obj = new Obj();
-            
-            // common
-            obj.position = gameObject.transform.position;
-            obj.rotation = gameObject.transform.rotation;
-            obj.localScale = gameObject.transform.localScale;
-
-            // mesh
-            if (gameObject.GetComponent<MeshFilter>() != null)
-            {
-                obj.meshSer = MeshConverter.Serialize(gameObject.GetComponent<MeshFilter>());
-                Debug.Log(JsonUtility.ToJson(obj.meshSer));
-                // TODO save model filename
-            }
-
-            return obj;
         }
 
         internal void AddModels(string path)

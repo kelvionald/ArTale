@@ -9,6 +9,8 @@ public class MoveObj : MonoBehaviour
     private Vector3 rot = new Vector3(0, 0, 0);
     private Camera camera;
 
+    public string ModelFilename;
+
     void Start()
     {
         camera = GameObject.Find("ARCamera").GetComponent<Camera>();

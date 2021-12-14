@@ -132,6 +132,7 @@ public class MenuManager : MonoBehaviour
                 //model.transform.localScale = new Vector3(0.2f, 0.2f, 0.2f);
                 model.AddComponent<BoxCollider>();
                 model.AddComponent<MoveObj>();
+                model.GetComponent<MoveObj>().ModelFilename = Path.GetFileName(path);
                 TaleModelObj.AddModels(path);
             }
             GetComponent<DrawPreviewSceneObjects>().RenderObjectsPreview();
