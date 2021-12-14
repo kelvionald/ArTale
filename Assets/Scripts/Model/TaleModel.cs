@@ -102,7 +102,12 @@ namespace Assets.Scripts
             Utils.TapDirectory(pathTaleRoot);
             string pathModels = pathTaleRoot + "Models/";
             Utils.TapDirectory(pathModels);
-            File.Copy(path, pathModels + Path.GetFileName(path));
+            string dest = pathModels + Path.GetFileName(path);
+            if (File.Exists(dest))
+            {
+                File.Delete(dest);
+            }
+            File.Copy(path, dest);
         }
     }
 }
