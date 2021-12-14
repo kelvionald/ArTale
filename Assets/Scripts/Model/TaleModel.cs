@@ -13,20 +13,25 @@ namespace Assets.Scripts
 {
     class TaleModel
     {
-        public void Save(string sceneName, TaleManager taleManager)
+        public string TaleName;
+
+        public void Save(string taleName, TaleManager taleManager)
         {
+            TaleName = taleName;
             Tale tale = Serialize(taleManager);
-            WriteFile(sceneName, tale);
+            WriteFile(taleName, tale);
         }
 
         private void WriteFile(string sceneName, Tale tale)
         {
-            string talePath = Utils.PathSaves + sceneName + "/";
-            Utils.TapDirectory(talePath);
-            string path = talePath + "tale.json";
+            string pathTaleRoot = Utils.PathSaves + sceneName + "/";
+            Utils.TapDirectory(pathTaleRoot);
+            string pathTale = pathTaleRoot + "tale.json";
+            string pathModels = pathTaleRoot + "Models/";
+            Utils.TapDirectory(pathModels);
             string json = JsonUtility.ToJson(tale);
-            Debug.Log(path);
-            File.WriteAllText(path, json);
+            Debug.Log(pathTale);
+            File.WriteAllText(pathTale, json);
 
             /*BinaryFormatter bf = new BinaryFormatter();
             FileStream file = File.Create(Application.persistentDataPath + "/" + sceneName + ".dat");
@@ -89,6 +94,15 @@ namespace Assets.Scripts
             }
 
             return obj;
+        }
+
+        internal void AddModels(string path)
+        {
+            string pathTaleRoot = Utils.PathSaves + TaleName+ "/";
+            Utils.TapDirectory(pathTaleRoot);
+            string pathModels = pathTaleRoot + "Models/";
+            Utils.TapDirectory(pathModels);
+            File.Copy(path, pathModels + Path.GetFileName(path));
         }
     }
 }

@@ -31,6 +31,7 @@ public class MenuManager : MonoBehaviour
     public GameObject ObjectsForScene;
 
     public string TaleName;
+    TaleModel TaleModelObj;
 
     void Start()
     {
@@ -95,6 +96,7 @@ public class MenuManager : MonoBehaviour
                 //model.transform.localScale = new Vector3(0.2f, 0.2f, 0.2f);
                 model.AddComponent<BoxCollider>();
                 model.AddComponent<MoveObj>();
+                TaleModelObj.AddModels(path);
             }
             GetComponent<DrawPreviewSceneObjects>().RenderObjectsPreview();
         }
@@ -119,8 +121,8 @@ public class MenuManager : MonoBehaviour
         }
         TaleName = taleName;
 
-        TaleModel taleModel = new TaleModel();
-        taleModel.Save(TaleName, GetComponent<TaleManager>());
+        TaleModelObj = new TaleModel();
+        TaleModelObj.Save(TaleName, GetComponent<TaleManager>());
 
         InputFieldTaleLinkOutput.GetComponent<InputField>().text = "1"; // TODO tale link 
     }
