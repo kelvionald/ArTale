@@ -15,6 +15,17 @@ namespace Assets.Scripts
     {
         public string TaleName;
 
+        public static List<string> LoadTaleList()
+        {
+            List<string> talesNames = new List<string>();
+            var paths = Directory.GetDirectories(Utils.PathSaves);
+            foreach (string path in paths)
+            {
+                talesNames.Add(Path.GetFileName(path));
+            }
+            return talesNames;
+        }
+
         public void Save(string taleName, TaleManager taleManager)
         {
             TaleName = taleName;
@@ -91,6 +102,7 @@ namespace Assets.Scripts
             {
                 obj.meshSer = MeshConverter.Serialize(gameObject.GetComponent<MeshFilter>());
                 Debug.Log(JsonUtility.ToJson(obj.meshSer));
+                // TODO save model filename
             }
 
             return obj;

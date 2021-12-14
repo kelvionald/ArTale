@@ -16,10 +16,14 @@ public class MenuManager : MonoBehaviour
 
     public GameObject InputFieldTaleName;
     public GameObject BtnSaveTale;
+
+    public GameObject TalesList;
+    public GameObject TalesListItem;
+
+    public GameObject BtnSaveTaleOnServer;
     public GameObject InputFieldTaleLinkOutput;
     public GameObject ButtonCopyLink;
 
-    public GameObject BtnSaveTaleOnServer;
     public GameObject BtnLoadTaleFromServer;
 
     public GameObject ButtonLoadModels;
@@ -54,6 +58,37 @@ public class MenuManager : MonoBehaviour
         BtnLoadTaleFromServer.GetComponent<Button>().onClick.AddListener(OnClickLoadFromServer);
 
         ButtonOk.GetComponent<Button>().onClick.AddListener(OnClickOk);
+
+        UpdateScrollLoadTale();
+    }
+
+    void UpdateScrollLoadTale()
+    {
+        foreach (Transform child in TalesList.transform)
+        {
+            Destroy(child.gameObject);
+        }
+
+        List<string> talesNames = TaleModel.LoadTaleList();
+
+        int i = 0;
+        foreach (string name in talesNames)
+        {
+            GameObject btn = Instantiate(TalesListItem, TalesList.transform);
+            //Vector3 a = btn.GetComponent<Button>()
+            //btn.transform.localPosition = new Vector3(a.x, a.y, a.z - i * 35);
+            btn.GetComponent<ButtonLoadTale>().TaleName = name;
+            btn.GetComponentInChildren<Text>().text = name;
+
+
+            btn.SetActive(false);
+            RectTransform pos = btn.GetComponent<RectTransform>();
+            Debug.Log(pos.anchoredPosition);
+            btn.GetComponent<RectTransform>().anchoredPosition = new Vector2(pos.anchoredPosition.x, pos.anchoredPosition.y - i * 35);
+            Debug.Log(btn.GetComponent<RectTransform>().anchoredPosition);
+            btn.SetActive(true);
+            i++;
+        }
     }
 
     private void OnClickLoadFromServer()
@@ -80,7 +115,6 @@ public class MenuManager : MonoBehaviour
             return;
         }
 
-        //string modelDir = EditorUtility.OpenFolderPanel("Folder with *.gltf models", "", "");
         string modelDir = Utils.CalcModelsLoadPath();
         if (modelDir.Length != 0)
         {
@@ -126,7 +160,9 @@ public class MenuManager : MonoBehaviour
         TaleModelObj = new TaleModel();
         TaleModelObj.Save(TaleName, GetComponent<TaleManager>());
 
-        InputFieldTaleLinkOutput.GetComponent<InputField>().text = "1"; // TODO tale link 
+        // InputFieldTaleLinkOutput.GetComponent<InputField>().text = "1"; // TODO tale link in save on server
+
+        UpdateScrollLoadTale();
     }
 
     private void OnClickMenu()
