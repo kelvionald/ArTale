@@ -8,6 +8,7 @@ using System.Runtime.Serialization.Formatters.Binary;
 using System.Text;
 using System.Threading.Tasks;
 using UnityEngine;
+using Siccity.GLTFUtility;
 
 namespace Assets.Scripts
 {
@@ -26,6 +27,12 @@ namespace Assets.Scripts
             return talesNames;
         }
 
+        public void Load(string taleName, TaleManager taleManager)
+        {
+            Tale tale = ReadFile(taleName);
+            Unserialize(taleManager, taleName, tale);
+        }
+
         public void Save(string taleName, TaleManager taleManager)
         {
             TaleName = taleName;
@@ -33,9 +40,17 @@ namespace Assets.Scripts
             WriteFile(taleName, tale);
         }
 
-        private void WriteFile(string sceneName, Tale tale)
+        private Tale ReadFile(string taleName)
         {
-            string pathTaleRoot = Utils.PathSaves + sceneName + "/";
+            string pathTaleRoot = Utils.PathSaves + taleName + "/";
+            string pathTale = pathTaleRoot + "tale.json";
+            string json = File.ReadAllText(pathTale);
+            return JsonUtility.FromJson<Tale>(json);
+        }
+
+        private void WriteFile(string taleName, Tale tale)
+        {
+            string pathTaleRoot = Utils.PathSaves + taleName + "/";
             Utils.TapDirectory(pathTaleRoot);
             string pathTale = pathTaleRoot + "tale.json";
             string pathModels = pathTaleRoot + "Models/";
@@ -43,11 +58,6 @@ namespace Assets.Scripts
             string json = JsonUtility.ToJson(tale, true);
             Debug.Log(pathTale);
             File.WriteAllText(pathTale, json);
-
-            /*BinaryFormatter bf = new BinaryFormatter();
-            FileStream file = File.Create(Application.persistentDataPath + "/" + sceneName + ".dat");
-            bf.Serialize(file, tale);
-            file.Close();*/
         }
 
         public static long ConvertToUnixTime(DateTime datetime)
@@ -62,6 +72,28 @@ namespace Assets.Scripts
             return sTime.AddSeconds(unixtime);
         }
 
+        private void Unserialize(TaleManager taleManager, string taleName, Tale tale)
+        {
+            string pathTaleRoot = Utils.PathSaves + taleName + "/";
+            string pathModels = pathTaleRoot + "Models/";
+            foreach (Scene scene in tale.scenes)
+            {
+                GameObject sceneObj = new GameObject();
+                if (taleManager.CurrentScene == null)
+                {
+                    taleManager.CurrentScene = sceneObj;
+                }
+                sceneObj.transform.SetParent(taleManager.ImgTarget.transform);
+                foreach (Obj obj in scene.objs)
+                {
+                    GameObject objModel = UnserializeObj(obj, pathModels);
+                    objModel.transform.SetParent(sceneObj.transform);
+                }
+
+                GameObject.Instantiate(taleManager.Grass, sceneObj.transform);
+            }
+        }
+
         private Tale Serialize(TaleManager taleManager)
         {
             Tale tale = new Tale();
@@ -69,11 +101,21 @@ namespace Assets.Scripts
             foreach (Transform _scene in taleManager.ImgTarget.transform)
             {
                 Scene scene = new Scene();
-                List<Obj> tmp = SerializeObj(_scene);
-                scene.objs = tmp;
+                scene.objs = SerializeObj(_scene);
                 tale.scenes.Add(scene);
             }
             return tale;
+        }
+
+        private GameObject UnserializeObj(Obj obj, string pathModels)
+        {
+            GameObject objModel = CreateObjFromFile(pathModels + obj.modelFilename);
+
+            objModel.transform.position = obj.position;
+            objModel.transform.rotation = obj.rotation;
+            objModel.transform.localScale = obj.localScale;
+
+            return objModel;
         }
 
         private List<Obj> SerializeObj(Transform _scene)
@@ -100,7 +142,16 @@ namespace Assets.Scripts
             return objs;
         }
 
-        internal void AddModels(string path)
+        public static GameObject CreateObjFromFile(string path)
+        {
+            GameObject model = Importer.LoadFromFile(path);
+            model.AddComponent<BoxCollider>();
+            model.AddComponent<MoveObj>();
+            model.GetComponent<MoveObj>().ModelFilename = Path.GetFileName(path);
+            return model;
+        }
+
+        internal void AddModel(string path)
         {
             string pathTaleRoot = Utils.PathSaves + TaleName+ "/";
             Utils.TapDirectory(pathTaleRoot);

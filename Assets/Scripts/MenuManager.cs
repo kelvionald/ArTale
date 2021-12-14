@@ -1,5 +1,4 @@
 using Assets.Scripts;
-using Siccity.GLTFUtility;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -75,17 +74,12 @@ public class MenuManager : MonoBehaviour
         foreach (string name in talesNames)
         {
             GameObject btn = Instantiate(TalesListItem, TalesList.transform);
-            //Vector3 a = btn.GetComponent<Button>()
-            //btn.transform.localPosition = new Vector3(a.x, a.y, a.z - i * 35);
             btn.GetComponent<ButtonLoadTale>().TaleName = name;
             btn.GetComponentInChildren<Text>().text = name;
 
-
             btn.SetActive(false);
             RectTransform pos = btn.GetComponent<RectTransform>();
-            Debug.Log(pos.anchoredPosition);
             btn.GetComponent<RectTransform>().anchoredPosition = new Vector2(pos.anchoredPosition.x, pos.anchoredPosition.y - i * 35);
-            Debug.Log(btn.GetComponent<RectTransform>().anchoredPosition);
             btn.SetActive(true);
             i++;
         }
@@ -127,13 +121,10 @@ public class MenuManager : MonoBehaviour
             var paths = Directory.GetFiles(modelDir, "*.gltf", SearchOption.TopDirectoryOnly);
             foreach (string path in paths)
             {
-                GameObject model = Importer.LoadFromFile(path);
+                GameObject model = TaleModel.CreateObjFromFile(path);
+
                 model.transform.SetParent(ObjectsForScene.transform);
-                //model.transform.localScale = new Vector3(0.2f, 0.2f, 0.2f);
-                model.AddComponent<BoxCollider>();
-                model.AddComponent<MoveObj>();
-                model.GetComponent<MoveObj>().ModelFilename = Path.GetFileName(path);
-                TaleModelObj.AddModels(path);
+                TaleModelObj.AddModel(path);
             }
             GetComponent<DrawPreviewSceneObjects>().RenderObjectsPreview();
         }
