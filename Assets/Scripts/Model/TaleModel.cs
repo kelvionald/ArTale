@@ -90,7 +90,7 @@ namespace Assets.Scripts
                     objModel.transform.SetParent(sceneObj.transform);
                 }
 
-                GameObject.Instantiate(taleManager.Grass, sceneObj.transform);
+                //GameObject.Instantiate(taleManager.Grass, sceneObj.transform);
             }
         }
 
