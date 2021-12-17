@@ -76,6 +76,12 @@ namespace Assets.Scripts
         {
             string pathTaleRoot = Utils.PathSaves + taleName + "/";
             string pathModels = pathTaleRoot + "Models/";
+
+            foreach (Transform sc in taleManager.ImgTarget.transform)
+            {
+                GameObject.Destroy(sc.gameObject);
+            }
+
             foreach (Scene scene in tale.scenes)
             {
                 GameObject sceneObj = new GameObject();

@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.IO;
 using UnityEditor;
 using UnityEngine;
+using UnityEngine.Android;
 using UnityEngine.UI;
 
 public class MenuManager : MonoBehaviour
@@ -40,6 +41,15 @@ public class MenuManager : MonoBehaviour
 
     void Start()
     {
+        if (!Permission.HasUserAuthorizedPermission(Permission.ExternalStorageRead))
+        {
+            Permission.RequestUserPermission(Permission.ExternalStorageRead);
+        }
+        if (!Permission.HasUserAuthorizedPermission(Permission.ExternalStorageWrite))
+        {
+            Permission.RequestUserPermission(Permission.ExternalStorageWrite);
+        }
+
         Utils.Init();
 
         PanelMenu.SetActive(false);
@@ -104,30 +114,51 @@ public class MenuManager : MonoBehaviour
     {
         if (TaleName == null || TaleName.Length == 0)
         {
-            PanelMessage.SetActive(true);
-            LabelMessage.GetComponent<Text>().text = "Set a name for the tale and save it before doing so.";
+            ShowMessage("Set a name for the tale and save it before doing so.");
             return;
         }
 
-        string modelDir = Utils.CalcModelsLoadPath();
-        if (modelDir.Length != 0)
+        try
         {
-            foreach (Transform child in ObjectsForScene.transform)
+            string modelDir = Utils.CalcModelsLoadPath();
+            if (modelDir.Length != 0)
             {
-                Destroy(child.gameObject);
-            }
+                foreach (Transform child in ObjectsForScene.transform)
+                {
+                    Destroy(child.gameObject);
+                }
 
-            Debug.Log(modelDir);
-            var paths = Directory.GetFiles(modelDir, "*.gltf", SearchOption.TopDirectoryOnly);
-            foreach (string path in paths)
-            {
-                GameObject model = TaleModel.CreateObjFromFile(path);
+                Debug.Log(modelDir);
+                var paths = Directory.GetFiles(modelDir, "*.gltf", SearchOption.TopDirectoryOnly);
+                foreach (string path in paths)
+                {
 
-                model.transform.SetParent(ObjectsForScene.transform);
-                TaleModelObj.AddModel(path);
+                    try
+                    {
+                        GameObject model = TaleModel.CreateObjFromFile(path);
+
+                        model.transform.SetParent(ObjectsForScene.transform);
+                        TaleModelObj.AddModel(path);
+                    }
+                    catch (Exception ex)
+                    {
+                        Debug.Log("1" + " " + ex.Message + " " + ex.Source + " " + ex.StackTrace);
+                        ShowMessage(ex.Message + " " + ex.Source + " " + ex.StackTrace);
+                    }
+                }
+                GetComponent<DrawPreviewSceneObjects>().RenderObjectsPreview();
             }
-            GetComponent<DrawPreviewSceneObjects>().RenderObjectsPreview();
         }
+        catch (Exception ex)
+        {
+            Debug.Log("2" + " " + ex.Message + " " + ex.Source + " " + ex.StackTrace);
+        }
+    }
+
+    private void ShowMessage(string v)
+    {
+        PanelMessage.SetActive(true);
+        LabelMessage.GetComponent<Text>().text = v;
     }
 
     private void OnClickCopyLink()

@@ -25,6 +25,15 @@ namespace Assets.Scripts
 
         internal static void Init()
         {
+            if (Application.platform == RuntimePlatform.WindowsEditor)
+            {
+
+            }
+            else
+            {
+                PathSaves = PathRootAndroid + "Saves/";
+            }
+
             TapDirectory(PathSaves);
             TapDirectory(PathRootAndroid);
             TapDirectory(CalcModelsLoadPath());
