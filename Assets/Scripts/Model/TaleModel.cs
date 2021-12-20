@@ -91,8 +91,26 @@ namespace Assets.Scripts
                     objModel.transform.SetParent(bs.Scene.transform);
                 }
             }
-            // load models
+            LoadModels(pathModels, taleManager.GetComponent<MenuManager>().ObjectsForScene, taleManager.GetComponent<DrawPreviewSceneObjects>());
             // set links
+        }
+
+        private void LoadModels(string modelDir, GameObject ObjectsForScene, DrawPreviewSceneObjects drawerPreview)
+        {
+            var paths = Directory.GetFiles(modelDir, "*.gltf", SearchOption.TopDirectoryOnly);
+            foreach (string path in paths)
+            {
+                try
+                {
+                    GameObject model = CreateObjFromFile(path);
+                    model.transform.SetParent(ObjectsForScene.transform);
+                }
+                catch (Exception ex)
+                {
+                    Debug.Log("1" + " " + ex.Message + " " + ex.Source + " " + ex.StackTrace);
+                }
+            }
+            drawerPreview.RenderObjectsPreview();
         }
 
         private Tale Serialize(TaleManager taleManager)

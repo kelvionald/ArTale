@@ -24,6 +24,8 @@ public class PreviewSceneObject : MonoBehaviour
         Physics.Raycast(ray, out hit);
 
         var CurrentScene = camera.GetComponent<TaleManager>().CurrentScene;
+        Debug.Log(sceneObject);
+        Debug.Log(CurrentScene);
         GameObject obj = Instantiate(sceneObject, CurrentScene.transform);
         obj.SetActive(true);
         obj.transform.position = new Vector3(hit.point.x, 0.06f, hit.point.z);

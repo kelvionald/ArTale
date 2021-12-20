@@ -55,12 +55,23 @@ public class TaleManager : MonoBehaviour
     public void ClearTale()
     {
         LastSceneNumber = 1;
+        CurrentScene = null;
         foreach (Transform sc in ImgTarget.transform)
         {
             Destroy(sc.gameObject);
         }
         foreach (Transform sc in PanelScenesGraph.transform)
         {
+            Destroy(sc.gameObject);
+        }
+        foreach (Transform sc in GetComponent<MenuManager>().ObjectsForScene.transform)
+        {
+            Destroy(sc.gameObject);
+        }
+        foreach (Transform sc in GetComponent<DrawPreviewSceneObjects>().ContentScroll.transform)
+        {
+            Debug.Log("destroy content");
+            Debug.Log(sc.gameObject);
             Destroy(sc.gameObject);
         }
     }
