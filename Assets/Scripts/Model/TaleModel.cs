@@ -9,6 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using UnityEngine;
 using Siccity.GLTFUtility;
+using UnityEngine.UI;
 
 namespace Assets.Scripts
 {
@@ -77,27 +78,21 @@ namespace Assets.Scripts
             string pathTaleRoot = Utils.PathSaves + taleName + "/";
             string pathModels = pathTaleRoot + "Models/";
 
-            foreach (Transform sc in taleManager.ImgTarget.transform)
-            {
-                GameObject.Destroy(sc.gameObject);
-            }
+            taleManager.ClearTale();
 
             foreach (Scene scene in tale.scenes)
             {
-                GameObject sceneObj = new GameObject();
-                if (taleManager.CurrentScene == null)
-                {
-                    taleManager.CurrentScene = sceneObj;
-                }
-                sceneObj.transform.SetParent(taleManager.ImgTarget.transform);
+                ButtonScene bs = taleManager.CreateScene(scene.name);
+                bs.SceneId = scene.id;
+                bs.gameObject.transform.position = scene.btnPosition;
                 foreach (Obj obj in scene.objs)
                 {
                     GameObject objModel = UnserializeObj(obj, pathModels);
-                    objModel.transform.SetParent(sceneObj.transform);
+                    objModel.transform.SetParent(bs.Scene.transform);
                 }
-
-                //GameObject.Instantiate(taleManager.Grass, sceneObj.transform);
             }
+            // load models
+            // set links
         }
 
         private Tale Serialize(TaleManager taleManager)
@@ -108,9 +103,26 @@ namespace Assets.Scripts
             {
                 Scene scene = new Scene();
                 scene.objs = SerializeObj(_scene);
+                ButtonScene bs = FindButtonScene(taleManager, _scene);
+                scene.name = bs.GetComponentInChildren<Text>().text;
+                scene.id = bs.SceneId;
+                scene.btnPosition = bs.gameObject.transform.position;
                 tale.scenes.Add(scene);
             }
+            // save scene links
             return tale;
+        }
+
+        private ButtonScene FindButtonScene(TaleManager taleManager, Transform scene)
+        {
+            foreach (Transform t in taleManager.PanelScenesGraph.transform)
+            {
+                if (t.GetComponent<ButtonScene>().Scene == scene.gameObject)
+                {
+                    return t.GetComponent<ButtonScene>();
+                }
+            }
+            return null;
         }
 
         private GameObject UnserializeObj(Obj obj, string pathModels)

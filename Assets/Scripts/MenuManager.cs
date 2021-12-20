@@ -132,7 +132,6 @@ public class MenuManager : MonoBehaviour
                 var paths = Directory.GetFiles(modelDir, "*.gltf", SearchOption.TopDirectoryOnly);
                 foreach (string path in paths)
                 {
-
                     try
                     {
                         GameObject model = TaleModel.CreateObjFromFile(path);

@@ -25,11 +25,9 @@ public class TaleManager : MonoBehaviour
 
     public int LastSceneNumber;
 
-    //public GameObject Grass;
-
     void Start()
     {
-        LastSceneNumber = 1;
+        ClearTale();
 
         PanelScenesManager.SetActive(false);
 
@@ -54,13 +52,30 @@ public class TaleManager : MonoBehaviour
         PanelScenesManager.SetActive(false);
     }
 
+    public void ClearTale()
+    {
+        LastSceneNumber = 1;
+        foreach (Transform sc in ImgTarget.transform)
+        {
+            Destroy(sc.gameObject);
+        }
+        foreach (Transform sc in PanelScenesGraph.transform)
+        {
+            Destroy(sc.gameObject);
+        }
+    }
+
     private void BtnAddOnClick()
     {
+        CreateScene("Scene " + LastSceneNumber);
+    }
+
+    public ButtonScene CreateScene(string btnName)
+    {
         GameObject btnScene = Instantiate(TmplBtnScene, PanelScenesGraph.transform);
-        btnScene.GetComponentInChildren<Text>().text = "Scene " + LastSceneNumber;
+        btnScene.GetComponentInChildren<Text>().text = btnName;
 
         GameObject scene = Instantiate(new GameObject(), ImgTarget.transform);
-        //GameObject grass = Instantiate(Grass, scene.transform);
 
         bool currentSceneIsNull = CurrentScene == null;
         if (currentSceneIsNull)
@@ -68,9 +83,12 @@ public class TaleManager : MonoBehaviour
             CurrentScene = scene;
         }
 
-        btnScene.GetComponent<ButtonScene>().Init(scene, this, currentSceneIsNull, LastSceneNumber);
+        ButtonScene bs = btnScene.GetComponent<ButtonScene>();
+        bs.Init(scene, this, currentSceneIsNull, LastSceneNumber);
 
         LastSceneNumber++;
+
+        return bs;
     }
 
     private void BtnShowOnClick()
