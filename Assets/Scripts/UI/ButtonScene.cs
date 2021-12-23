@@ -36,6 +36,23 @@ public class ButtonScene : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
 
     public void OnPointerDown(PointerEventData eventData)
     {
+        if (taleManager.IsModeLink)
+        {
+            if (taleManager.LinkFirstScene == SceneId)
+            {
+                return;
+            }
+
+            if (taleManager.LinkFirstScene == -1)
+            {
+                taleManager.LinkFirstScene = SceneId;
+            }
+            else
+            {
+                taleManager.CreateLink(SceneId);
+            }
+            return;
+        }
         Debug.Log("down");
         IsMoving = true;
         taleManager.SelectSceneBtn(this, Scene);

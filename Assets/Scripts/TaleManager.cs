@@ -21,6 +21,14 @@ public class TaleManager : MonoBehaviour
     public GameObject BtnAdd;
     public GameObject BtnShow;
     public GameObject BtnRemove;
+
+    public GameObject Lines;
+    public GameObject BtnAddLink;
+    public GameObject BtnRemoveLink;
+    public bool IsModeLink = false;
+    public int LinkFirstScene;
+    public Dictionary<int, List<int>> Links;
+
     public GameObject PanelScenesManager;
     public GameObject PanelScenesGraph;
     public GameObject TmplBtnScene;
@@ -45,12 +53,77 @@ public class TaleManager : MonoBehaviour
         BtnShow.GetComponent<Button>().onClick.AddListener(BtnShowOnClick);
         BtnRemove.GetComponent<Button>().onClick.AddListener(BtnRemoveOnClick);
 
+        BtnAddLink.GetComponent<Button>().onClick.AddListener(BtnAddLinkOnClick);
+        BtnRemoveLink.GetComponent<Button>().onClick.AddListener(BtnRemoveLinkClick);
+
         BtnMove.GetComponent<Button>().onClick.AddListener(() => SetActionType(ActionType.Move));
         BtnRotate.GetComponent<Button>().onClick.AddListener(() => SetActionType(ActionType.Rotate));
 
         BtnAddOnClick(); // first scene
 
         RenderScene(1);
+    }
+
+    internal void CreateLink(int secondScene)
+    {
+        IsModeLink = false;
+
+        int a = Math.Min(LinkFirstScene, secondScene);
+        int b = Math.Max(LinkFirstScene, secondScene);
+
+        if (!Links.ContainsKey(a))
+        {
+            Links.Add(a, new List<int>());
+        }
+        if (Links[a].Contains(b))
+        {
+            return;
+        }
+        Links[a].Add(b);
+        RenderLinks();
+    }
+
+    private void RenderLinks()
+    {
+        foreach (var kv in Links)
+        {
+            int a = kv.Key;
+            foreach (int b in kv.Value)
+            {
+                GameObject obj = new GameObject();
+                obj.transform.SetParent(Lines.transform);
+
+                /*var lineRenderer = obj.AddComponent(typeof(LineRenderer)) as LineRenderer;
+                lineRenderer.SetPosition(0, FindButtonById(a).transform.position);
+                lineRenderer.SetPosition(1, FindButtonById(b).transform.position);
+                lineRenderer.SetWidth(0.6f, 0.6f);
+                lineRenderer.material = new Material(Shader.Find("Sprites/Default"));
+                lineRenderer.SetColors(ColorActionUnselected, ColorActionUnselected);*/
+            }
+        }
+    }
+
+    ButtonScene FindButtonById(int id)
+    {
+        foreach (Transform t in PanelScenesGraph.transform)
+        {
+            var bs = t.GetComponent<ButtonScene>();
+            if (bs && bs.SceneId == id)
+            {
+                return bs;
+            }
+        }
+        return null;
+    }
+
+    private void BtnAddLinkOnClick()
+    {
+        IsModeLink = true;
+    }
+
+    private void BtnRemoveLinkClick()
+    {
+
     }
 
     private void BtnBackOnClick()
@@ -75,16 +148,23 @@ public class TaleManager : MonoBehaviour
 
     public void ClearTale()
     {
+        Links = new Dictionary<int, List<int>>();
+        LinkFirstScene = -1;
+        IsModeLink = false;
         LastSceneNumber = 1;
         CurrentScene = null;
         foreach (Transform sc in ImgTarget.transform)
         {
             Destroy(sc.gameObject);
         }
+
         foreach (Transform sc in PanelScenesGraph.transform)
         {
             Destroy(sc.gameObject);
         }
+        Lines = new GameObject();
+        Lines.transform.SetParent(PanelScenesGraph.transform);
+
         foreach (Transform sc in GetComponent<MenuManager>().ObjectsForScene.transform)
         {
             Destroy(sc.gameObject);
