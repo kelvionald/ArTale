@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -6,14 +7,19 @@ public class MoveObj : MonoBehaviour
 {
     private Ray ray;
     private RaycastHit hit;
-    private Vector3 rot = new Vector3(0, 0, 0);
     private Camera camera;
+    private TaleManager taleManager;
 
     public string ModelFilename;
+
+    /*ActionType actionType;
+    Vector2 mousePos;
+    DateTime actionTime;*/
 
     void Start()
     {
         camera = GameObject.Find("ARCamera").GetComponent<Camera>();
+        taleManager = GameObject.Find("ARCamera").GetComponent<TaleManager>();
     }
 
     void Update()
@@ -30,21 +36,22 @@ public class MoveObj : MonoBehaviour
                 return;
             }
 
-            ray = camera.ScreenPointToRay(Input.mousePosition);
-            
-            if (Physics.Raycast(ray, out hit) && hit.collider.gameObject == gameObject)
+            if (taleManager.actionType == ActionType.Move)
             {
-                rot.z = hit.point.z;
-                rot.x = hit.point.x;
-                transform.position = new Vector3(rot.x, transform.position.y, rot.z);
-            }
-            /*
-            transform.eulerAngles = new Vector3(
+                ray = camera.ScreenPointToRay(Input.mousePosition);
+                if (Physics.Raycast(ray, out hit) && hit.collider.gameObject == gameObject)
+                {
+                    transform.position = new Vector3(hit.point.x, transform.position.y, hit.point.z);
+                }
+            } 
+            else if (taleManager.actionType == ActionType.Rotate)
+            {
+                transform.eulerAngles = new Vector3(
                 transform.eulerAngles.x,
                 transform.eulerAngles.y - Input.GetAxis("Mouse X") * 10,
-                transform.eulerAngles.z// + Input.GetAxis("Mouse Y") * 10
+                transform.eulerAngles.z
             );
-            */
+            }
         }
     }
 

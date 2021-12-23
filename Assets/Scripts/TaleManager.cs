@@ -5,6 +5,8 @@ using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.UI;
 
+public enum ActionType { Move, Rotate };
+
 public class TaleManager : MonoBehaviour
 {
     public GameObject TextSceneNumber;
@@ -23,6 +25,12 @@ public class TaleManager : MonoBehaviour
     public GameObject PanelScenesGraph;
     public GameObject TmplBtnScene;
 
+    public Color ColorActionSelected;
+    public Color ColorActionUnselected;
+    public GameObject BtnMove;
+    public GameObject BtnRotate;
+    public ActionType actionType;
+
     public int LastSceneNumber;
 
     void Start()
@@ -31,25 +39,38 @@ public class TaleManager : MonoBehaviour
 
         PanelScenesManager.SetActive(false);
 
-        BtnScenes.GetComponent<Button>().onClick.AddListener(BtnScenesOnClick);
+        BtnScenes.GetComponent<Button>().onClick.AddListener(() => PanelScenesManager.SetActive(true));
         BtnBack.GetComponent<Button>().onClick.AddListener(BtnBackOnClick);
         BtnAdd.GetComponent<Button>().onClick.AddListener(BtnAddOnClick);
         BtnShow.GetComponent<Button>().onClick.AddListener(BtnShowOnClick);
         BtnRemove.GetComponent<Button>().onClick.AddListener(BtnRemoveOnClick);
+
+        BtnMove.GetComponent<Button>().onClick.AddListener(() => SetActionType(ActionType.Move));
+        BtnRotate.GetComponent<Button>().onClick.AddListener(() => SetActionType(ActionType.Rotate));
 
         BtnAddOnClick(); // first scene
 
         RenderScene(1);
     }
 
-    private void BtnScenesOnClick()
-    {
-        PanelScenesManager.SetActive(true);
-    }
-
     private void BtnBackOnClick()
     {
         PanelScenesManager.SetActive(false);
+    }
+
+    private void SetActionType(ActionType actionType)
+    {
+        this.actionType = actionType;
+        BtnMove.GetComponent<Image>().color = ColorActionUnselected;
+        BtnRotate.GetComponent<Image>().color = ColorActionUnselected;
+        if (actionType == ActionType.Move)
+        {
+            BtnMove.GetComponent<Image>().color = ColorActionSelected;
+        }
+        else if (actionType == ActionType.Rotate)
+        {
+            BtnRotate.GetComponent<Image>().color = ColorActionSelected;
+        }
     }
 
     public void ClearTale()
