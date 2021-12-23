@@ -38,6 +38,13 @@ public class MoveObj : MonoBehaviour
                 rot.x = hit.point.x;
                 transform.position = new Vector3(rot.x, transform.position.y, rot.z);
             }
+            /*
+            transform.eulerAngles = new Vector3(
+                transform.eulerAngles.x,
+                transform.eulerAngles.y - Input.GetAxis("Mouse X") * 10,
+                transform.eulerAngles.z// + Input.GetAxis("Mouse Y") * 10
+            );
+            */
         }
     }
 
