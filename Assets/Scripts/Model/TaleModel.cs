@@ -135,9 +135,10 @@ namespace Assets.Scripts
         {
             foreach (Transform t in taleManager.PanelScenesGraph.transform)
             {
-                if (t.GetComponent<ButtonScene>().Scene == scene.gameObject)
+                var bs = t.GetComponent<ButtonScene>();
+                if (bs  && bs.Scene == scene.gameObject)
                 {
-                    return t.GetComponent<ButtonScene>();
+                    return bs;
                 }
             }
             return null;

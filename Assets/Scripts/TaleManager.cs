@@ -235,8 +235,11 @@ public class TaleManager : MonoBehaviour
         foreach (Transform sceneBtn in PanelScenesGraph.transform)
         {
             var tmpBtnScene = sceneBtn.GetComponent<ButtonScene>();
-            tmpBtnScene.IsCurrent = tmpBtnScene == SelectedBtnScene;
-            tmpBtnScene.toggleSelection(false);
+            if (tmpBtnScene)
+            {
+                tmpBtnScene.IsCurrent = tmpBtnScene == SelectedBtnScene;
+                tmpBtnScene.toggleSelection(false);
+            }
         }
         BtnBackOnClick();
     }
