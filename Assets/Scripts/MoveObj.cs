@@ -47,10 +47,10 @@ public class MoveObj : MonoBehaviour
             else if (taleManager.actionType == ActionType.Rotate)
             {
                 transform.eulerAngles = new Vector3(
-                transform.eulerAngles.x,
-                transform.eulerAngles.y - Input.GetAxis("Mouse X") * 10,
-                transform.eulerAngles.z
-            );
+                    transform.eulerAngles.x,
+                    transform.eulerAngles.y - Input.GetAxis("Mouse X") * 10,
+                    transform.eulerAngles.z
+                );
             }
         }
     }
