@@ -18,5 +18,6 @@ public class ButtonLoadTale : MonoBehaviour
         GameObject camera = GameObject.Find("ARCamera");
         TaleModel TaleModelObj = new TaleModel();
         TaleModelObj.Load(TaleName, camera.GetComponent<TaleManager>());
+        camera.GetComponent<MenuManager>().InputFieldTaleName.GetComponent<InputField>().text = TaleName;
     }
 }
