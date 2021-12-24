@@ -62,6 +62,7 @@ public class ButtonScene : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
     {
         Debug.Log("up");
         IsMoving = false;
+        taleManager.RenderLinks();
     }
 
     public void Update()

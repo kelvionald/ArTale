@@ -83,8 +83,12 @@ public class TaleManager : MonoBehaviour
         RenderLinks();
     }
 
-    private void RenderLinks()
+    public void RenderLinks()
     {
+        foreach (Transform t in Lines.transform)
+        {
+            Destroy(t.gameObject);
+        }
         foreach (var kv in Links)
         {
             int a = kv.Key;
@@ -92,6 +96,17 @@ public class TaleManager : MonoBehaviour
             {
                 GameObject obj = new GameObject();
                 obj.transform.SetParent(Lines.transform);
+                var lineImage = obj.AddComponent(typeof(Image)) as Image;
+                lineImage.color = ColorActionUnselected;
+                ButtonScene objA = FindButtonById(a);
+                ButtonScene objB = FindButtonById(b);
+                Vector3 delta = objA.transform.position - objB.transform.position;
+                float width = delta.magnitude;
+                lineImage.rectTransform.sizeDelta = new Vector2(width, 2);
+                lineImage.rectTransform.pivot = new Vector2(0, 0);
+                lineImage.rectTransform.localPosition = objA.transform.position;
+                var rad = (float) Math.Asin(delta.normalized.y);
+                lineImage.rectTransform.Rotate(new Vector3(0, 0, -rad * 180 / 3.14f));
 
                 /*var lineRenderer = obj.AddComponent(typeof(LineRenderer)) as LineRenderer;
                 lineRenderer.SetPosition(0, FindButtonById(a).transform.position);
