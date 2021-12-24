@@ -91,6 +91,7 @@ namespace Assets.Scripts
                     objModel.transform.SetParent(bs.Scene.transform);
                 }
             }
+            taleManager.UpdateVisibleScenes();
             LoadModels(pathModels, taleManager.GetComponent<MenuManager>().ObjectsForScene, taleManager.GetComponent<DrawPreviewSceneObjects>());
             // set links
         }

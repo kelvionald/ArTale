@@ -205,13 +205,15 @@ public class TaleManager : MonoBehaviour
         GameObject scene = Instantiate(new GameObject(), ImgTarget.transform);
 
         bool currentSceneIsNull = CurrentScene == null;
-        if (currentSceneIsNull)
-        {
-            CurrentScene = scene;
-        }
 
         ButtonScene bs = btnScene.GetComponent<ButtonScene>();
         bs.Init(scene, this, currentSceneIsNull, LastSceneNumber);
+        
+        if (currentSceneIsNull)
+        {
+            CurrentScene = scene;
+            SelectedBtnScene = bs;
+        }
 
         LastSceneNumber++;
 
@@ -228,10 +230,7 @@ public class TaleManager : MonoBehaviour
         Debug.Log("SelectedId " + SelectedBtnScene.SceneId);
         CurrentScene = SelectedBtnScene.Scene;
         RenderScene(SelectedBtnScene.SceneId);
-        foreach (Transform scene in ImgTarget.transform)
-        {
-            scene.gameObject.SetActive(scene.gameObject == SelectedBtnScene.Scene);
-        }
+        UpdateVisibleScenes();
         foreach (Transform sceneBtn in PanelScenesGraph.transform)
         {
             var tmpBtnScene = sceneBtn.GetComponent<ButtonScene>();
@@ -242,6 +241,14 @@ public class TaleManager : MonoBehaviour
             }
         }
         BtnBackOnClick();
+    }
+
+    public void UpdateVisibleScenes()
+    {
+        foreach (Transform scene in ImgTarget.transform)
+        {
+            scene.gameObject.SetActive(scene.gameObject == SelectedBtnScene.Scene);
+        }
     }
 
     private void BtnRemoveOnClick()
