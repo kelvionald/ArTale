@@ -1,5 +1,4 @@
 ﻿using Assets.Scripts.Model;
-using Assets.Scripts.Model.Converters;
 using System;
 using System.Collections.Generic;
 using System.IO;
