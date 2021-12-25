@@ -12,6 +12,10 @@ public class ViewManager : MonoBehaviour
     public GameObject TextTitle;
     public GameObject TextDescription;
 
+    public AudioSource audioSource;
+    public AudioClip audioClip;
+    public string taleName;
+
     private TaleManager _TaleManager;
     private int CurrentSceneId = 1;
     private int CurrentScriptIndex = 1;
@@ -22,10 +26,13 @@ public class ViewManager : MonoBehaviour
     {
         _TaleManager = GetComponent<TaleManager>();
         BtnNext.GetComponent<Button>().onClick.AddListener(Next);
+        audioSource = GetComponent<AudioSource>();
     }
 
     public void Run(string taleName)
     {
+        this.taleName = taleName;
+
         CurrentSceneId = 1;
         CurrentScriptIndex = 0;
 
@@ -69,11 +76,41 @@ public class ViewManager : MonoBehaviour
 
         ScriptScene ss = FindScene(sceneId);
         TextTitle.GetComponent<Text>().text = "<b>" + ss.title + "</b>";
-        TextDescription.GetComponent<Text>().text = ss.script[scriptIndex].text;
-        if (ss.script[scriptIndex].song != null)
+        ScriptPart sp = ss.script[scriptIndex];
+        TextDescription.GetComponent<Text>().text = sp.text;
+        if (sp.song != null)
         {
-            Debug.Log("play song " + ss.script[scriptIndex].song);
+            string wwwPre = "file:/";
+            if (Application.platform == RuntimePlatform.WindowsEditor)
+            {
+                wwwPre = "file:///";
+            }
+            string wwwPath = wwwPre + Utils.PathSaves + taleName + "/" + sp.song;
+            StartCoroutine(LoadAudio(wwwPath, sp.song));
+            /*WWW www = new WWW(wwwPath);
+            AudioClip audioClip = www.GetAudioClip();
+            audioClip.name = sp.song;
+            audioSource.clip = 
+            audioSource.Play();
+            */
         }
+    }
+
+    private IEnumerator LoadAudio(string soundPath, string audioName)
+    {
+        WWW request = new WWW(soundPath);
+        yield return request;
+
+        audioClip = request.GetAudioClip();
+        audioClip.name = audioName;
+
+        PlayAudioFile();
+    }
+
+    private void PlayAudioFile()
+    {
+        audioSource.clip = audioClip;
+        audioSource.Play();
     }
 
     private ScriptScene FindScene(int sceneId)
