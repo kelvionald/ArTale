@@ -214,5 +214,13 @@ namespace Assets.Scripts
             }
             File.Copy(path, dest);
         }
+
+        public ScriptScenes LoadScript(string taleName)
+        {
+            string pathTaleRoot = Utils.PathSaves + taleName + "/";
+            string pathTale = pathTaleRoot + "script.json";
+            string json = File.ReadAllText(pathTale);
+            return JsonUtility.FromJson<ScriptScenes>(json);
+        }
     }
 }

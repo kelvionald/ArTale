@@ -84,6 +84,7 @@ public class MenuManager : MonoBehaviour
         PanelTale.SetActive(false);
         PanelTaleView.SetActive(true);
         GetComponent<TaleManager>().ShowFirstScene();
+        GetComponent<ViewManager>().Run(InputFieldTaleName.GetComponent<InputField>().text);
     }
 
     void UpdateScrollLoadTale()
