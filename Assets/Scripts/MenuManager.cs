@@ -182,8 +182,6 @@ public class MenuManager : MonoBehaviour
         TaleModelObj = new TaleModel();
         TaleModelObj.Save(TaleName, GetComponent<TaleManager>());
 
-        // InputFieldTaleLinkOutput.GetComponent<InputField>().text = "1"; // TODO tale link in save on server
-
         UpdateScrollLoadTale();
     }
 
