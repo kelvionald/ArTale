@@ -12,6 +12,7 @@ namespace Assets.Scripts
     public class Tale
     {
         public long Edited;
+        public List<string> Links;
         public List<Scene> scenes = new List<Scene>();
     }
 }

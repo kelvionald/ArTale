@@ -73,6 +73,10 @@ public class TaleManager : MonoBehaviour
         int a = Math.Min(LinkFirstScene, secondScene);
         int b = Math.Max(LinkFirstScene, secondScene);
 
+        LinkFirstScene = -1;
+
+        Debug.Log("create link " + a + " " + b);
+
         if (!Links.ContainsKey(a))
         {
             Links.Add(a, new List<int>());
@@ -109,13 +113,6 @@ public class TaleManager : MonoBehaviour
                 lineImage.rectTransform.localPosition = objA.transform.position;
                 var rad = (float) Math.Asin(delta.normalized.y);
                 lineImage.rectTransform.Rotate(new Vector3(0, 0, -rad * 180 / 3.14f));
-
-                /*var lineRenderer = obj.AddComponent(typeof(LineRenderer)) as LineRenderer;
-                lineRenderer.SetPosition(0, FindButtonById(a).transform.position);
-                lineRenderer.SetPosition(1, FindButtonById(b).transform.position);
-                lineRenderer.SetWidth(0.6f, 0.6f);
-                lineRenderer.material = new Material(Shader.Find("Sprites/Default"));
-                lineRenderer.SetColors(ColorActionUnselected, ColorActionUnselected);*/
             }
         }
     }

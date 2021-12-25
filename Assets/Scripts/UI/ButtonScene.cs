@@ -38,6 +38,8 @@ public class ButtonScene : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
     {
         if (taleManager.IsModeLink)
         {
+            Debug.Log("mode link " + taleManager.LinkFirstScene + " " + SceneId);
+
             if (taleManager.LinkFirstScene == SceneId)
             {
                 return;

@@ -55,6 +55,7 @@ namespace Assets.Scripts
             string pathTale = pathTaleRoot + "tale.json";
             string pathModels = pathTaleRoot + "Models/";
             Utils.TapDirectory(pathModels);
+            //string json = JsonConvert.SerializeObject(tale);
             string json = JsonUtility.ToJson(tale, true);
             Debug.Log(pathTale);
             File.WriteAllText(pathTale, json);
@@ -127,7 +128,14 @@ namespace Assets.Scripts
                 scene.btnPosition = bs.gameObject.transform.position;
                 tale.scenes.Add(scene);
             }
-            // save scene links
+            //tale.Links = taleManager.Links;
+            tale.Links = new List<string>();
+            foreach (var kv in taleManager.Links)
+            {
+                List<string> ls = kv.Value.Select(x => x.ToString()).ToList();
+                tale.Links.Add(kv.Key + ":" + string.Join(",", ls));
+            }
+            //new List<KeyValuePair<int, List<int>>>();//taleManager.Links;
             return tale;
         }
 
