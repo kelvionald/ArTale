@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.UI;
 
-public enum ActionType { Move, Rotate };
+public enum ActionType { Move, Rotate, Height };
 
 public class TaleManager : MonoBehaviour
 {
@@ -37,6 +37,7 @@ public class TaleManager : MonoBehaviour
     public Color ColorActionUnselected;
     public GameObject BtnMove;
     public GameObject BtnRotate;
+    public GameObject BtnHeight;
     public ActionType actionType;
 
     public int LastSceneNumber;
@@ -58,6 +59,7 @@ public class TaleManager : MonoBehaviour
 
         BtnMove.GetComponent<Button>().onClick.AddListener(() => SetActionType(ActionType.Move));
         BtnRotate.GetComponent<Button>().onClick.AddListener(() => SetActionType(ActionType.Rotate));
+        BtnHeight.GetComponent<Button>().onClick.AddListener(() => SetActionType(ActionType.Height));
 
         BtnAddOnClick(); // first scene
 
@@ -151,6 +153,7 @@ public class TaleManager : MonoBehaviour
         this.actionType = actionType;
         BtnMove.GetComponent<Image>().color = ColorActionUnselected;
         BtnRotate.GetComponent<Image>().color = ColorActionUnselected;
+        BtnHeight.GetComponent<Image>().color = ColorActionUnselected;
         if (actionType == ActionType.Move)
         {
             BtnMove.GetComponent<Image>().color = ColorActionSelected;
@@ -158,6 +161,10 @@ public class TaleManager : MonoBehaviour
         else if (actionType == ActionType.Rotate)
         {
             BtnRotate.GetComponent<Image>().color = ColorActionSelected;
+        }
+        else if (actionType == ActionType.Height)
+        {
+            BtnHeight.GetComponent<Image>().color = ColorActionSelected;
         }
     }
 

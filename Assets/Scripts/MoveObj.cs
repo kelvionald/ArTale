@@ -52,6 +52,14 @@ public class MoveObj : MonoBehaviour
                     transform.eulerAngles.z
                 );
             }
+            else if (taleManager.actionType == ActionType.Height)
+            {
+                ray = camera.ScreenPointToRay(Input.mousePosition);
+                if (Physics.Raycast(ray, out hit) && hit.collider.gameObject == gameObject)
+                {
+                    transform.position = new Vector3(transform.position.x, hit.point.y, transform.position.z);
+                }
+            }
         }
     }
 
