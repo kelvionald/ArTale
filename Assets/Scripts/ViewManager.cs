@@ -92,12 +92,13 @@ public class ViewManager : MonoBehaviour
         TextDescription.GetComponent<Text>().text = sp.text;
         if (sp.song != null)
         {
-            string wwwPre = "file:/";
+            string wwwPre = "file://";//file:/
             if (Application.platform == RuntimePlatform.WindowsEditor)
             {
                 wwwPre = "file:///";
             }
             string wwwPath = wwwPre + Utils.PathSaves + taleName + "/" + sp.song;
+            //GetComponent<MenuManager>().ShowMessage(wwwPath);
             StartCoroutine(LoadAudio(wwwPath, sp.song));
         }
     }

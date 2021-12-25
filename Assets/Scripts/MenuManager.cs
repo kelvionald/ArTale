@@ -177,7 +177,7 @@ public class MenuManager : MonoBehaviour
         }
     }
 
-    private void ShowMessage(string v)
+    public void ShowMessage(string v)
     {
         PanelMessage.SetActive(true);
         LabelMessage.GetComponent<Text>().text = v;
