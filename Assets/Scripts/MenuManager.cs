@@ -39,6 +39,7 @@ public class MenuManager : MonoBehaviour
     public GameObject PanelTaleView;
 
     public string TaleName;
+
     TaleModel TaleModelObj;
 
     public GameObject CurrentMoveObj = null;
@@ -84,6 +85,13 @@ public class MenuManager : MonoBehaviour
         PanelTale.SetActive(false);
         PanelTaleView.SetActive(true);
         GetComponent<ViewManager>().Run(InputFieldTaleName.GetComponent<InputField>().text);
+    }
+
+    internal void ShowEditor()
+    {
+        OnClickMenu();
+        PanelTale.SetActive(true);
+        PanelTaleView.SetActive(false);
     }
 
     void UpdateScrollLoadTale()

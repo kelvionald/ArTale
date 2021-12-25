@@ -12,6 +12,9 @@ public class ViewManager : MonoBehaviour
     public GameObject TextTitle;
     public GameObject TextDescription;
 
+    public GameObject PanelEnd;
+    public GameObject BtnEnd;
+
     public AudioSource audioSource;
     public AudioClip audioClip;
     public string taleName;
@@ -27,6 +30,14 @@ public class ViewManager : MonoBehaviour
         _TaleManager = GetComponent<TaleManager>();
         BtnNext.GetComponent<Button>().onClick.AddListener(Next);
         audioSource = GetComponent<AudioSource>();
+
+        PanelEnd.SetActive(false);
+        BtnEnd.GetComponent<Button>().onClick.AddListener(End);
+    }
+
+    private void End()
+    {
+        GetComponent<MenuManager>().ShowEditor();
     }
 
     public void Run(string taleName)
@@ -65,7 +76,8 @@ public class ViewManager : MonoBehaviour
         } 
         else
         {
-            Debug.Log("end");
+            CurrentSceneId--;
+            PanelEnd.SetActive(true);
         }
     }
 
@@ -87,12 +99,6 @@ public class ViewManager : MonoBehaviour
             }
             string wwwPath = wwwPre + Utils.PathSaves + taleName + "/" + sp.song;
             StartCoroutine(LoadAudio(wwwPath, sp.song));
-            /*WWW www = new WWW(wwwPath);
-            AudioClip audioClip = www.GetAudioClip();
-            audioClip.name = sp.song;
-            audioSource.clip = 
-            audioSource.Play();
-            */
         }
     }
 
