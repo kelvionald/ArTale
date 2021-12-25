@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class MoveObj : MonoBehaviour
 {
@@ -65,6 +66,11 @@ public class MoveObj : MonoBehaviour
 
     void OnMouseDown()
     {
+        if (EventSystem.current.IsPointerOverGameObject())
+        {
+            return;
+        }
+
         if (GetMenuManager().CurrentMoveObj == null)
         {
             GetMenuManager().CurrentMoveObj = gameObject;
@@ -73,6 +79,11 @@ public class MoveObj : MonoBehaviour
 
     void OnMouseUp()
     {
+        if (EventSystem.current.IsPointerOverGameObject())
+        {
+            return;
+        }
+
         GetMenuManager().CurrentMoveObj = null;
     }
 
