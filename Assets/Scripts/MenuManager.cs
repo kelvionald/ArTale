@@ -56,7 +56,7 @@ public class MenuManager : MonoBehaviour
         PanelMessage.SetActive(false);
 
         BtnMenu.GetComponent<Button>().onClick.AddListener(OnClickMenu);
-        BtnCloseMenu.GetComponent<Button>().onClick.AddListener(OnClickMenuClose);
+        BtnCloseMenu.GetComponent<Button>().onClick.AddListener(MenuClose);
 
         BtnSaveTale.GetComponent<Button>().onClick.AddListener(OnClickSaveTale);
         ButtonCopyLink.GetComponent<Button>().onClick.AddListener(OnClickCopyLink);
@@ -192,7 +192,7 @@ public class MenuManager : MonoBehaviour
         PanelMenu.SetActive(true);
     }
 
-    private void OnClickMenuClose()
+    public void MenuClose()
     {
         PanelMenu.SetActive(false);
     }
