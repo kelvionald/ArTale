@@ -68,7 +68,7 @@ public class ViewManager : MonoBehaviour
         _TaleManager.ShowSceneById(CurrentSceneId);
 
         ScriptScene ss = FindScene(sceneId);
-        TextTitle.GetComponent<Text>().text = ss.title;
+        TextTitle.GetComponent<Text>().text = "<b>" + ss.title + "</b>";
         TextDescription.GetComponent<Text>().text = ss.script[scriptIndex].text;
         if (ss.script[scriptIndex].song != null)
         {
