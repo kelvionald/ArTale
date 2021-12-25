@@ -14,7 +14,7 @@ public class SceneTargetTrackableEventHandler : DefaultTrackableEventHandler
         {
             component.enabled = true;
         }*/
-        TargetStatus.GetComponent<Text>().text = "<color=#4caf50>Found</color>";
+        TargetStatus.GetComponent<Text>().text = "<color=#4caf50>Lost</color>";
     }
 
     protected override void OnTrackingLost()
