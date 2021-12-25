@@ -89,6 +89,21 @@ public class TaleManager : MonoBehaviour
         RenderLinks();
     }
 
+    internal void ShowFirstScene()
+    {
+        foreach (Transform btn in PanelScenesGraph.transform)
+        {
+            var btnScene = btn.gameObject.GetComponent<ButtonScene>();
+            if (btnScene != null)
+            {
+                btnScene.IsCurrent = true;
+                SelectedBtnScene = btnScene;
+                break;
+            }
+        }
+        BtnShowOnClick();
+    }
+
     public void RenderLinks()
     {
         foreach (Transform t in Lines.transform)

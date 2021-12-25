@@ -34,6 +34,10 @@ public class MenuManager : MonoBehaviour
 
     public GameObject ObjectsForScene;
 
+    public GameObject BtnRunView;
+    public GameObject PanelTale;
+    public GameObject PanelTaleView;
+
     public string TaleName;
     TaleModel TaleModelObj;
 
@@ -54,6 +58,7 @@ public class MenuManager : MonoBehaviour
 
         PanelMenu.SetActive(false);
         PanelMessage.SetActive(false);
+        PanelTaleView.SetActive(false);
 
         BtnMenu.GetComponent<Button>().onClick.AddListener(OnClickMenu);
         BtnCloseMenu.GetComponent<Button>().onClick.AddListener(MenuClose);
@@ -68,7 +73,17 @@ public class MenuManager : MonoBehaviour
 
         ButtonOk.GetComponent<Button>().onClick.AddListener(OnClickOk);
 
+        BtnRunView.GetComponent<Button>().onClick.AddListener(RunView);
+
         UpdateScrollLoadTale();
+    }
+
+    private void RunView()
+    {
+        MenuClose();
+        PanelTale.SetActive(false);
+        PanelTaleView.SetActive(true);
+        GetComponent<TaleManager>().ShowFirstScene();
     }
 
     void UpdateScrollLoadTale()
