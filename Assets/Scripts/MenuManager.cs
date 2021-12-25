@@ -83,7 +83,6 @@ public class MenuManager : MonoBehaviour
         MenuClose();
         PanelTale.SetActive(false);
         PanelTaleView.SetActive(true);
-        GetComponent<TaleManager>().ShowFirstScene();
         GetComponent<ViewManager>().Run(InputFieldTaleName.GetComponent<InputField>().text);
     }
 
