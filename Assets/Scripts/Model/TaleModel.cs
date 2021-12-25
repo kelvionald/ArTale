@@ -55,7 +55,6 @@ namespace Assets.Scripts
             string pathTale = pathTaleRoot + "tale.json";
             string pathModels = pathTaleRoot + "Models/";
             Utils.TapDirectory(pathModels);
-            //string json = JsonConvert.SerializeObject(tale);
             string json = JsonUtility.ToJson(tale, true);
             Debug.Log(pathTale);
             File.WriteAllText(pathTale, json);
@@ -94,6 +93,14 @@ namespace Assets.Scripts
             taleManager.UpdateVisibleScenes();
             LoadModels(pathModels, taleManager.GetComponent<MenuManager>().ObjectsForScene, taleManager.GetComponent<DrawPreviewSceneObjects>());
             // set links
+            taleManager.Links = new Dictionary<int, List<int>>();
+            foreach (string kv in tale.Links)
+            {
+                string[] ab = kv.Split(new char[] { ':' });
+                List<int> b = ab[1].Split(new char[] { ',' }).Select(x => Convert.ToInt32(x)).ToList();
+                taleManager.Links.Add(Convert.ToInt32(ab[0]), b);
+            }
+            taleManager.RenderLinks();
         }
 
         private void LoadModels(string modelDir, GameObject ObjectsForScene, DrawPreviewSceneObjects drawerPreview)
@@ -128,14 +135,12 @@ namespace Assets.Scripts
                 scene.btnPosition = bs.gameObject.transform.position;
                 tale.scenes.Add(scene);
             }
-            //tale.Links = taleManager.Links;
             tale.Links = new List<string>();
             foreach (var kv in taleManager.Links)
             {
                 List<string> ls = kv.Value.Select(x => x.ToString()).ToList();
                 tale.Links.Add(kv.Key + ":" + string.Join(",", ls));
             }
-            //new List<KeyValuePair<int, List<int>>>();//taleManager.Links;
             return tale;
         }
 
