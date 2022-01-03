@@ -1,3 +1,4 @@
+using Assets.Scripts;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -171,7 +172,7 @@ public class TaleManager : MonoBehaviour
 
     private void BtnBackOnClick()
     {
-        PanelScenesManager.SetActive(false);
+        Utils.HideOtherPanels(GetComponent<MenuManager>().PanelTale);
     }
 
     private void SetActionType(ActionType actionType)
