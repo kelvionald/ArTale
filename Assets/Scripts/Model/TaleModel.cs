@@ -27,6 +27,13 @@ namespace Assets.Scripts
             return talesNames;
         }
 
+        public void Create(string taleName, TaleManager taleManager)
+        {
+            taleManager.ClearTale();
+            taleManager.BtnAddOnClick();
+            taleManager.UpdateVisibleScenes();
+        }
+
         public void Load(string taleName, TaleManager taleManager)
         {
             Tale tale = ReadFile(taleName);
@@ -205,8 +212,10 @@ namespace Assets.Scripts
         {
             string pathTaleRoot = Utils.PathSaves + TaleName+ "/";
             Utils.TapDirectory(pathTaleRoot);
+
             string pathModels = pathTaleRoot + "Models/";
             Utils.TapDirectory(pathModels);
+
             string dest = pathModels + Path.GetFileName(path);
             if (File.Exists(dest))
             {

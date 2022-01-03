@@ -211,7 +211,7 @@ public class TaleManager : MonoBehaviour
         }
     }
 
-    private void BtnAddOnClick()
+    public void BtnAddOnClick()
     {
         CreateScene("Scene " + LastSceneNumber);
     }

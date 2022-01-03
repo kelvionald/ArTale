@@ -43,6 +43,7 @@ public class MenuManager : MonoBehaviour
     TaleModel TaleModelObj;
 
     public GameObject CurrentMoveObj = null;
+    public GameObject PanelMainMenu;
 
     void Start()
     {
@@ -56,10 +57,7 @@ public class MenuManager : MonoBehaviour
         }
 
         Utils.Init();
-
-        PanelMenu.SetActive(false);
-        PanelMessage.SetActive(false);
-        PanelTaleView.SetActive(false);
+        Utils.HideOtherPanels(PanelMainMenu);
 
         BtnMenu.GetComponent<Button>().onClick.AddListener(OnClickMenu);
         BtnCloseMenu.GetComponent<Button>().onClick.AddListener(MenuClose);
@@ -133,10 +131,11 @@ public class MenuManager : MonoBehaviour
         PanelMessage.SetActive(false);
     }
 
-    private void OnClickLoadModels()
+    public void OnClickLoadModels()
     {
         if (TaleName == null || TaleName.Length == 0)
         {
+            Debug.Log("Set a name for the tale and save it before doing so.");
             ShowMessage("Set a name for the tale and save it before doing so.");
             return;
         }
@@ -158,14 +157,12 @@ public class MenuManager : MonoBehaviour
                     try
                     {
                         GameObject model = TaleModel.CreateObjFromFile(path);
-
                         model.transform.SetParent(ObjectsForScene.transform);
                         TaleModelObj.AddModel(path);
                     }
                     catch (Exception ex)
                     {
                         Debug.Log("1" + " " + ex.Message + " " + ex.Source + " " + ex.StackTrace);
-                        ShowMessage(ex.Message + " " + ex.Source + " " + ex.StackTrace);
                     }
                 }
                 GetComponent<DrawPreviewSceneObjects>().RenderObjectsPreview();

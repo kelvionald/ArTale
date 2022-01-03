@@ -20,6 +20,7 @@ public class ButtonLoadTale : MonoBehaviour
         TaleModelObj.Load(TaleName, camera.GetComponent<TaleManager>());
         MenuManager mm = camera.GetComponent<MenuManager>();
         mm.InputFieldTaleName.GetComponent<InputField>().text = TaleName;
-        mm.MenuClose();
+        mm.TaleName = TaleName;
+        mm.OnClickLoadModels();
     }
 }
