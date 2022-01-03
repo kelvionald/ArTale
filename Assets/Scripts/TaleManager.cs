@@ -223,6 +223,8 @@ public class TaleManager : MonoBehaviour
             Debug.Log("destroy content");
             Debug.Log(sc.gameObject);
             Destroy(sc.gameObject);
+            Debug.Log("destroyied content");
+            Debug.Log(sc.gameObject);
         }
     }
 

@@ -8,3 +8,4 @@ https://habr.com/ru/post/428796/
 вьювер https://gltf-viewer.donmccurdy.com/
 
 https://nlix.ru/ArTale/Materials.pdf
+https://unitycoder.com/blog/2016/02/23/ui-scroll-view-automatic-content-height/

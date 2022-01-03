@@ -27,7 +27,6 @@ public class ButtonLoadTale : MonoBehaviour
             TaleManager taleManager = camera.GetComponent<TaleManager>();
             taleManager.TaleName = TaleName;
             TaleModelObj.Load(TaleName, taleManager);
-            mm.LoadModels();
         }
         else
         {
