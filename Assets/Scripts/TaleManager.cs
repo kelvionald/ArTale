@@ -17,7 +17,6 @@ public class TaleManager : MonoBehaviour
     public ButtonScene SelectedBtnScene;
 
     public GameObject ImgTarget;
-    public GameObject BtnScenes;
 
     public GameObject BtnBack;
     public GameObject BtnAdd;
@@ -64,7 +63,6 @@ public class TaleManager : MonoBehaviour
 
         PanelScenesManager.SetActive(false);
 
-        BtnScenes.GetComponent<Button>().onClick.AddListener(() => PanelScenesManager.SetActive(true));
         BtnBack.GetComponent<Button>().onClick.AddListener(BtnBackOnClick);
         BtnAdd.GetComponent<Button>().onClick.AddListener(BtnAddOnClick);
         BtnShow.GetComponent<Button>().onClick.AddListener(BtnShowOnClick);

@@ -11,10 +11,8 @@ using UnityEngine.UI;
 public class MenuManager : MonoBehaviour
 {
     public GameObject BtnCloseMenu;
-    public GameObject BtnMenu;
     public GameObject PanelMenu;
 
-    //public GameObject InputFieldTaleName;
     public GameObject BtnSaveTale;
 
     public GameObject TalesList;
@@ -59,7 +57,6 @@ public class MenuManager : MonoBehaviour
         Utils.Init();
         Utils.HideOtherPanels(PanelMainMenu);
 
-        BtnMenu.GetComponent<Button>().onClick.AddListener(OnClickMenu);
         BtnCloseMenu.GetComponent<Button>().onClick.AddListener(MenuClose);
 
         BtnSaveTale.GetComponent<Button>().onClick.AddListener(OnClickSaveTale);
@@ -89,7 +86,6 @@ public class MenuManager : MonoBehaviour
 
     internal void ShowEditor()
     {
-        OnClickMenu();
         PanelTale.SetActive(true);
         PanelTaleView.SetActive(false);
     }
@@ -222,11 +218,6 @@ public class MenuManager : MonoBehaviour
         TaleModelObj.Save(taleName, GetComponent<TaleManager>());
 
         UpdateScrollLoadTale();
-    }
-
-    private void OnClickMenu()
-    {
-        PanelMenu.SetActive(true);
     }
 
     public void MenuClose()
