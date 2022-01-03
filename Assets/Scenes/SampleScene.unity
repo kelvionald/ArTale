@@ -923,7 +923,7 @@ GameObject:
   - component: {fileID: 205580801}
   - component: {fileID: 205580800}
   m_Layer: 5
-  m_Name: PanelTaleView
+  m_Name: PanelMenuTaleView
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
