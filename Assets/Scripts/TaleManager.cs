@@ -42,6 +42,19 @@ public class TaleManager : MonoBehaviour
 
     public int LastSceneNumber;
 
+    public string _TaleName;
+    public string TaleName 
+    { 
+        get 
+        {
+            return _TaleName;
+        }
+        set
+        {
+            _TaleName = value;
+        }
+    }
+
     void Start()
     {
         ClearTale();

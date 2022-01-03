@@ -23,9 +23,9 @@ public class ButtonLoadTale : MonoBehaviour
         if (IsEdit)
         {
             TaleModel TaleModelObj = new TaleModel();
-            TaleModelObj.Load(TaleName, camera.GetComponent<TaleManager>());
-            mm.InputFieldTaleName.GetComponent<InputField>().text = TaleName;
-            mm.TaleName = TaleName;
+            TaleManager taleManager = camera.GetComponent<TaleManager>();
+            taleManager.TaleName = TaleName;
+            TaleModelObj.Load(TaleName, taleManager);
             mm.LoadModels();
         }
         else

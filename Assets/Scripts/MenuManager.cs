@@ -14,7 +14,7 @@ public class MenuManager : MonoBehaviour
     public GameObject BtnMenu;
     public GameObject PanelMenu;
 
-    public GameObject InputFieldTaleName;
+    //public GameObject InputFieldTaleName;
     public GameObject BtnSaveTale;
 
     public GameObject TalesList;
@@ -39,8 +39,6 @@ public class MenuManager : MonoBehaviour
     public GameObject BtnRunView;
     public GameObject PanelTale;
     public GameObject PanelTaleView;
-
-    public string TaleName;
 
     TaleModel TaleModelObj;
 
@@ -153,6 +151,7 @@ public class MenuManager : MonoBehaviour
 
     public void LoadModels()
     {
+        string TaleName = GetComponent<TaleManager>().TaleName;
         if (TaleName == null || TaleName.Length == 0)
         {
             Debug.Log("Set a name for the tale and save it before doing so.");
@@ -214,14 +213,13 @@ public class MenuManager : MonoBehaviour
 
     private void OnClickSaveTale()
     {
-        string taleName = InputFieldTaleName.GetComponent<InputField>().text;
+        string taleName = GetComponent<TaleManager>().TaleName;
         if (taleName.Length == 0)
         {
             return;
         }
-        TaleName = taleName;
 
-        TaleModelObj.Save(TaleName, GetComponent<TaleManager>());
+        TaleModelObj.Save(taleName, GetComponent<TaleManager>());
 
         UpdateScrollLoadTale();
     }
