@@ -202,7 +202,7 @@ public class MenuManager : MonoBehaviour
         editor.Copy();
     }
 
-    private void OnClickSaveTale()
+    public void OnClickSaveTale()
     {
         string taleName = GetComponent<TaleManager>().TaleName;
         if (taleName.Length == 0)
