@@ -16,6 +16,8 @@ namespace Assets.Scripts
         public static string PathRootAndroid = "/storage/emulated/0/ArTale/"; // project android root
         public static string PathModelsAndroid = PathRootAndroid + "Models/"; // for load models android
 
+        public static string HelpUrl = "https://nlix.ru/ArTale/Materials.pdf";
+
         public static void TapDirectory(string path)
         {
             if (!Directory.Exists(path))
