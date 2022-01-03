@@ -37,7 +37,7 @@ public class ViewManager : MonoBehaviour
 
     private void End()
     {
-        GetComponent<MenuManager>().ShowEditor();
+        Utils.HideOtherPanels(GetComponent<MenuManager>().PanelMenu);
     }
 
     public void Run(string taleName)

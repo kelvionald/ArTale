@@ -78,16 +78,8 @@ public class MenuManager : MonoBehaviour
 
     private void RunView()
     {
-        /*MenuClose();
-        PanelTale.SetActive(false);
-        PanelTaleView.SetActive(true);
-        GetComponent<ViewManager>().Run(InputFieldTaleName.GetComponent<InputField>().text);*/
-    }
-
-    internal void ShowEditor()
-    {
-        PanelTale.SetActive(true);
-        PanelTaleView.SetActive(false);
+        Utils.HideOtherPanels(PanelTaleView);
+        GetComponent<ViewManager>().Run(GetComponent<TaleManager>().TaleName);
     }
 
     void UpdateScrollLoadTale()
