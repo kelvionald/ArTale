@@ -18,6 +18,8 @@ public class MenuManager : MonoBehaviour
     public GameObject BtnSaveTale;
 
     public GameObject TalesList;
+    public GameObject TalesListView;
+
     public GameObject TalesListItem;
 
     public GameObject BtnSaveTaleOnServer;
@@ -108,6 +110,7 @@ public class MenuManager : MonoBehaviour
         {
             GameObject btn = Instantiate(TalesListItem, TalesList.transform);
             btn.GetComponent<ButtonLoadTale>().TaleName = name;
+            btn.GetComponent<ButtonLoadTale>().PanelTale = PanelTale;
             btn.GetComponentInChildren<Text>().text = name;
 
             btn.SetActive(false);

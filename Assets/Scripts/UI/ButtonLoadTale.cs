@@ -7,6 +7,7 @@ using UnityEngine.UI;
 public class ButtonLoadTale : MonoBehaviour
 {
     public string TaleName;
+    public GameObject PanelTale;
 
     void Start()
     {
@@ -22,5 +23,7 @@ public class ButtonLoadTale : MonoBehaviour
         mm.InputFieldTaleName.GetComponent<InputField>().text = TaleName;
         mm.TaleName = TaleName;
         mm.LoadModels();
+
+        Utils.HideOtherPanels(PanelTale);
     }
 }
