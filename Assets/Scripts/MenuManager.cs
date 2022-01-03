@@ -22,7 +22,7 @@ public class MenuManager : MonoBehaviour
     public GameObject TalesListItem;
 
     public GameObject BtnSaveTaleOnServer;
-    public GameObject InputFieldTaleLinkOutput;
+    public GameObject TaleLinkOutput;
     public GameObject ButtonCopyLink;
 
     public GameObject BtnLoadTaleFromServer;
@@ -196,7 +196,7 @@ public class MenuManager : MonoBehaviour
     {
         TextEditor editor = new TextEditor
         {
-            text = InputFieldTaleLinkOutput.GetComponent<InputField>().text
+            text = TaleLinkOutput.GetComponent<InputField>().text
         };
         editor.SelectAll();
         editor.Copy();
