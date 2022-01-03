@@ -83,10 +83,10 @@ public class MenuManager : MonoBehaviour
 
     private void RunView()
     {
-        MenuClose();
+        /*MenuClose();
         PanelTale.SetActive(false);
         PanelTaleView.SetActive(true);
-        GetComponent<ViewManager>().Run(InputFieldTaleName.GetComponent<InputField>().text);
+        GetComponent<ViewManager>().Run(InputFieldTaleName.GetComponent<InputField>().text);*/
     }
 
     internal void ShowEditor()
@@ -102,6 +102,10 @@ public class MenuManager : MonoBehaviour
         {
             Destroy(child.gameObject);
         }
+        foreach (Transform child in TalesListView.transform)
+        {
+            Destroy(child.gameObject);
+        }
 
         List<string> talesNames = TaleModel.LoadTaleList();
 
@@ -111,12 +115,23 @@ public class MenuManager : MonoBehaviour
             GameObject btn = Instantiate(TalesListItem, TalesList.transform);
             btn.GetComponent<ButtonLoadTale>().TaleName = name;
             btn.GetComponent<ButtonLoadTale>().PanelTale = PanelTale;
+            btn.GetComponent<ButtonLoadTale>().IsEdit = true;
             btn.GetComponentInChildren<Text>().text = name;
-
             btn.SetActive(false);
             RectTransform pos = btn.GetComponent<RectTransform>();
             btn.GetComponent<RectTransform>().anchoredPosition = new Vector2(pos.anchoredPosition.x, pos.anchoredPosition.y - i * 35);
             btn.SetActive(true);
+
+            GameObject btnView = Instantiate(TalesListItem, TalesListView.transform);
+            btnView.GetComponent<ButtonLoadTale>().TaleName = name;
+            btnView.GetComponent<ButtonLoadTale>().PanelTale = PanelTaleView;
+            btnView.GetComponent<ButtonLoadTale>().IsEdit = false;
+            btnView.GetComponentInChildren<Text>().text = name;
+            btnView.SetActive(false);
+            RectTransform posView = btnView.GetComponent<RectTransform>();
+            btnView.GetComponent<RectTransform>().anchoredPosition = new Vector2(posView.anchoredPosition.x, posView.anchoredPosition.y - i * 35);
+            btnView.SetActive(true);
+
             i++;
         }
     }
