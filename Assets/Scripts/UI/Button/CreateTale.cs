@@ -29,7 +29,7 @@ public class CreateTale : MonoBehaviour
         MenuManager mm = camera.GetComponent<MenuManager>();
         mm.InputFieldTaleName.GetComponent<InputField>().text = taleName;
         mm.TaleName = taleName;
-        mm.OnClickLoadModels();
+        mm.LoadModels();
 
         Utils.HideOtherPanels(PanelTale);
     }

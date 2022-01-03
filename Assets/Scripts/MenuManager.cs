@@ -65,7 +65,7 @@ public class MenuManager : MonoBehaviour
         BtnSaveTale.GetComponent<Button>().onClick.AddListener(OnClickSaveTale);
         ButtonCopyLink.GetComponent<Button>().onClick.AddListener(OnClickCopyLink);
 
-        ButtonLoadModels.GetComponent<Button>().onClick.AddListener(OnClickLoadModels);
+        ButtonLoadModels.GetComponent<Button>().onClick.AddListener(LoadModels);
 
         BtnSaveTaleOnServer.GetComponent<Button>().onClick.AddListener(OnClickSaveOnServer);
         BtnLoadTaleFromServer.GetComponent<Button>().onClick.AddListener(OnClickLoadFromServer);
@@ -75,6 +75,8 @@ public class MenuManager : MonoBehaviour
         BtnRunView.GetComponent<Button>().onClick.AddListener(RunView);
 
         UpdateScrollLoadTale();
+
+        TaleModelObj = new TaleModel();
     }
 
     private void RunView()
@@ -131,7 +133,7 @@ public class MenuManager : MonoBehaviour
         PanelMessage.SetActive(false);
     }
 
-    public void OnClickLoadModels()
+    public void LoadModels()
     {
         if (TaleName == null || TaleName.Length == 0)
         {
@@ -139,6 +141,8 @@ public class MenuManager : MonoBehaviour
             ShowMessage("Set a name for the tale and save it before doing so.");
             return;
         }
+
+        TaleModelObj.TaleName = TaleName;
 
         try
         {
@@ -199,7 +203,6 @@ public class MenuManager : MonoBehaviour
         }
         TaleName = taleName;
 
-        TaleModelObj = new TaleModel();
         TaleModelObj.Save(TaleName, GetComponent<TaleManager>());
 
         UpdateScrollLoadTale();
