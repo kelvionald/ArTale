@@ -12,6 +12,7 @@ public class MenuManager : MonoBehaviour
 {
     public GameObject BtnCloseMenu;
     public GameObject PanelMenu;
+    public GameObject PanelEditorMenu;
 
     public GameObject BtnSaveTale;
 
@@ -78,6 +79,7 @@ public class MenuManager : MonoBehaviour
 
     private void RunView()
     {
+        GetComponent<MenuManager>().PanelMenu = PanelEditorMenu;
         Utils.HideOtherPanels(PanelTaleView);
         GetComponent<ViewManager>().Run(GetComponent<TaleManager>().TaleName);
     }
@@ -111,6 +113,7 @@ public class MenuManager : MonoBehaviour
             GameObject btnView = Instantiate(TalesListItem, TalesListView.transform);
             btnView.GetComponent<ButtonLoadTale>().TaleName = name;
             btnView.GetComponent<ButtonLoadTale>().PanelTale = PanelTaleView;
+            btnView.GetComponent<ButtonLoadTale>().PanelMainMenu = PanelMainMenu;
             btnView.GetComponent<ButtonLoadTale>().IsEdit = false;
             btnView.GetComponentInChildren<Text>().text = name;
             btnView.SetActive(false);

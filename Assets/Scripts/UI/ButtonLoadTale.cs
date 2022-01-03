@@ -8,6 +8,7 @@ public class ButtonLoadTale : MonoBehaviour
 {
     public string TaleName;
     public GameObject PanelTale;
+    public GameObject PanelMainMenu;
 
     public bool IsEdit = true;
 
@@ -30,6 +31,7 @@ public class ButtonLoadTale : MonoBehaviour
         }
         else
         {
+            mm.PanelMenu = PanelMainMenu;
             mm.GetComponent<ViewManager>().Run(TaleName);
         }
 

@@ -42,6 +42,8 @@ public class ViewManager : MonoBehaviour
 
     public void Run(string taleName)
     {
+        PanelEnd.SetActive(false);
+
         this.taleName = taleName;
 
         CurrentSceneId = 1;

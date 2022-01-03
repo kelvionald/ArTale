@@ -12337,6 +12337,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   BtnCloseMenu: {fileID: 1006333057}
   PanelMenu: {fileID: 796990945}
+  PanelEditorMenu: {fileID: 1462869498}
   BtnSaveTale: {fileID: 1074160191}
   TalesList: {fileID: 634778135}
   TalesListView: {fileID: 1243784394}
