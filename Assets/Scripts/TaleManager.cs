@@ -10,6 +10,8 @@ public enum ActionType { Move, Rotate, Height };
 public class TaleManager : MonoBehaviour
 {
     public GameObject TextSceneNumber;
+    public GameObject TextCurrentTale;
+
     public GameObject CurrentScene;
 
     public ButtonScene SelectedBtnScene;
@@ -51,6 +53,7 @@ public class TaleManager : MonoBehaviour
         }
         set
         {
+            TextCurrentTale.GetComponent<Text>().text = "Сказка: " + value;
             _TaleName = value;
         }
     }
