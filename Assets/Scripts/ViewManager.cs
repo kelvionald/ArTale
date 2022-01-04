@@ -37,11 +37,15 @@ public class ViewManager : MonoBehaviour
 
     private void End()
     {
+        Utils.IsViewMode = false;
+
         Utils.HideOtherPanels(GetComponent<MenuManager>().PanelMenu);
     }
 
     public void Run(string taleName)
     {
+        Utils.IsViewMode = true;
+
         Utils.HideOtherPanels(GetComponent<MenuManager>().PanelTaleView);
         PanelEnd.SetActive(false);
 

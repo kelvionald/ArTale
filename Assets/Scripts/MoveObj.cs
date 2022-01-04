@@ -1,3 +1,4 @@
+using Assets.Scripts;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -33,6 +34,11 @@ public class MoveObj : MonoBehaviour
             }
 
             if (GetMenuManager().CurrentMoveObj != gameObject)
+            {
+                return;
+            }
+
+            if (Utils.IsViewMode)
             {
                 return;
             }

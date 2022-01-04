@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace Assets.Scripts
 {
@@ -18,6 +19,8 @@ namespace Assets.Scripts
 
         public static string HelpUrl = "https://nlix.ru/ArTale/Materials.pdf";
         public static string UploadUrl = "https://nlix.ru/ArTale/upload.php";
+
+        public static bool IsViewMode = false;
 
         public static void TapDirectory(string path)
         {
@@ -62,6 +65,10 @@ namespace Assets.Scripts
             foreach (Transform t in canvas.transform)
             {
                 t.gameObject.SetActive(t.gameObject == panel);
+                if (t.gameObject.GetComponent<Text>())
+                {
+                    t.gameObject.SetActive(true);
+                }
             }
         }
     }

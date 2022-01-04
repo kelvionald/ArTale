@@ -301,7 +301,7 @@ public class TaleManager : MonoBehaviour
 
     private void RenderScene(int id)
     {
-        TextSceneNumber.GetComponent<InputField>().text = "Scene " + id;
+        TextSceneNumber.GetComponent<Text>().text = "Scene " + id;
     }
 
     internal void SelectSceneBtn(ButtonScene buttonScene, GameObject sceneParent)

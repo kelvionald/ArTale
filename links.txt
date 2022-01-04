@@ -9,3 +9,4 @@ https://habr.com/ru/post/428796/
 
 https://nlix.ru/ArTale/Materials.pdf
 https://unitycoder.com/blog/2016/02/23/ui-scroll-view-automatic-content-height/
+https://stackoverflow.com/questions/37493936/android-internet-permission-in-unity
