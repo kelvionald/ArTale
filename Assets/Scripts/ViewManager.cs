@@ -42,6 +42,7 @@ public class ViewManager : MonoBehaviour
 
     public void Run(string taleName)
     {
+        Utils.HideOtherPanels(GetComponent<MenuManager>().PanelTaleView);
         PanelEnd.SetActive(false);
 
         this.taleName = taleName;
@@ -58,6 +59,8 @@ public class ViewManager : MonoBehaviour
 
     private void Next()
     {
+        Debug.Log("Next");
+        Utils.HideOtherPanels(GetComponent<MenuManager>().PanelTaleView);
         ScriptScene ss = FindScene(CurrentSceneId);
         if (CurrentScriptIndex < ss.script.Count - 1)
         {
@@ -87,6 +90,7 @@ public class ViewManager : MonoBehaviour
     {
         Debug.Log(sceneId + " " + scriptIndex);
         _TaleManager.ShowSceneById(CurrentSceneId);
+        Utils.HideOtherPanels(GetComponent<MenuManager>().PanelTaleView);
 
         ScriptScene ss = FindScene(sceneId);
         TextTitle.GetComponent<Text>().text = "<b>" + ss.title + "</b>";

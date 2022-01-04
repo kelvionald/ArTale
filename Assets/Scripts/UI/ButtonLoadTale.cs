@@ -7,7 +7,7 @@ using UnityEngine.UI;
 public class ButtonLoadTale : MonoBehaviour
 {
     public string TaleName;
-    public GameObject PanelTale;
+    public GameObject PanelEditOrView;
     public GameObject PanelMainMenu;
 
     public bool IsEdit = true;
@@ -34,6 +34,6 @@ public class ButtonLoadTale : MonoBehaviour
             mm.GetComponent<ViewManager>().Run(TaleName);
         }
 
-        Utils.HideOtherPanels(PanelTale);
+        Utils.HideOtherPanels(PanelEditOrView);
     }
 }

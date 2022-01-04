@@ -78,7 +78,6 @@ public class MenuManager : MonoBehaviour
     private void RunView()
     {
         GetComponent<MenuManager>().PanelMenu = PanelEditorMenu;
-        Utils.HideOtherPanels(PanelTaleView);
         GetComponent<ViewManager>().Run(GetComponent<TaleManager>().TaleName);
     }
 
@@ -100,7 +99,7 @@ public class MenuManager : MonoBehaviour
         {
             GameObject btn = Instantiate(TalesListItem, TalesList.transform);
             btn.GetComponent<ButtonLoadTale>().TaleName = name;
-            btn.GetComponent<ButtonLoadTale>().PanelTale = PanelTale;
+            btn.GetComponent<ButtonLoadTale>().PanelEditOrView = PanelTale;
             btn.GetComponent<ButtonLoadTale>().IsEdit = true;
             btn.GetComponentInChildren<Text>().text = name;
             btn.SetActive(false);
@@ -110,7 +109,7 @@ public class MenuManager : MonoBehaviour
 
             GameObject btnView = Instantiate(TalesListItem, TalesListView.transform);
             btnView.GetComponent<ButtonLoadTale>().TaleName = name;
-            btnView.GetComponent<ButtonLoadTale>().PanelTale = PanelTaleView;
+            btnView.GetComponent<ButtonLoadTale>().PanelEditOrView = PanelTaleView;
             btnView.GetComponent<ButtonLoadTale>().PanelMainMenu = PanelMainMenu;
             btnView.GetComponent<ButtonLoadTale>().IsEdit = false;
             btnView.GetComponentInChildren<Text>().text = name;

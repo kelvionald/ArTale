@@ -57,6 +57,7 @@ namespace Assets.Scripts
 
         internal static void HideOtherPanels(GameObject panel)
         {
+            Debug.Log("HIDE AND SHOW " + panel);
             GameObject canvas = GameObject.Find("Canvas").gameObject;
             foreach (Transform t in canvas.transform)
             {
