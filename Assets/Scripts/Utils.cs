@@ -17,6 +17,7 @@ namespace Assets.Scripts
         public static string PathModelsAndroid = PathRootAndroid + "Models/"; // for load models android
 
         public static string HelpUrl = "https://nlix.ru/ArTale/Materials.pdf";
+        public static string UploadUrl = "https://nlix.ru/ArTale/upload.php";
 
         public static void TapDirectory(string path)
         {

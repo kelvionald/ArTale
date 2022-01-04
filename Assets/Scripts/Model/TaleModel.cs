@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using UnityEngine;
 using Siccity.GLTFUtility;
 using UnityEngine.UI;
+using System.IO.Compression;
 
 namespace Assets.Scripts
 {
@@ -53,6 +54,18 @@ namespace Assets.Scripts
             string pathTale = pathTaleRoot + "tale.json";
             string json = File.ReadAllText(pathTale);
             return JsonUtility.FromJson<Tale>(json);
+        }
+
+        public static string ZipTale(string taleName)
+        {
+            string pathTale = Utils.PathSaves + taleName + "/";
+            string pathTaleZip = Utils.PathSaves + taleName + ".zip";
+            if (File.Exists(pathTaleZip))
+            {
+                File.Delete(pathTaleZip);
+            }
+            ZipFile.CreateFromDirectory(pathTale, pathTaleZip);
+            return pathTaleZip;
         }
 
         private void WriteFile(string taleName, Tale tale)
