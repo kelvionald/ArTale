@@ -214,18 +214,20 @@ public class TaleManager : MonoBehaviour
         Lines = new GameObject();
         Lines.transform.SetParent(PanelScenesGraph.transform);
 
-        foreach (Transform sc in GetComponent<MenuManager>().ObjectsForScene.transform)
-        {
-            Destroy(sc.gameObject);
-        }
-        foreach (Transform sc in GetComponent<DrawPreviewSceneObjects>().ContentScroll.transform)
+        DrawPreviewSceneObjects drawerPreview = GetComponent<DrawPreviewSceneObjects>();
+        drawerPreview.ClearObjectsForScene();
+        foreach (Transform sc in drawerPreview.ContentScroll.transform)
         {
             Debug.Log("destroy content");
             Debug.Log(sc.gameObject);
+            Debug.Log(sc.gameObject.GetComponent<PreviewSceneObject>().sceneObject);
             Destroy(sc.gameObject);
+            Destroy(sc.gameObject.GetComponent<PreviewSceneObject>().sceneObject);
             Debug.Log("destroyied content");
+            Debug.Log(sc.gameObject.GetComponent<PreviewSceneObject>().sceneObject);
             Debug.Log(sc.gameObject);
         }
+        drawerPreview.ClearObjectsForScene();
     }
 
     public void BtnAddOnClick()

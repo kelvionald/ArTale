@@ -4026,6 +4026,36 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 558247063}
   m_CullTransparentMesh: 1
+--- !u!21 &586181485
+Material:
+  serializedVersion: 6
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: 'scene2_scaledMaterial
+
+    20536'
+  m_Shader: {fileID: 10752, guid: 0000000000000000f000000000000000, type: 0}
+  m_ShaderKeywords: 
+  m_LightmapFlags: 5
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - _MainTex:
+        m_Texture: {fileID: 2800000, guid: 45efc1e2c5ca4855b83f9be6080f9651, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Ints: []
+    m_Floats: []
+    m_Colors:
+    - _Color: {r: 0.82089555, g: 0.82089555, b: 0.82089555, a: 1}
+  m_BuildTextureStacks: []
 --- !u!1 &606925929
 GameObject:
   m_ObjectHideFlags: 0
@@ -6616,7 +6646,6 @@ GameObject:
   - component: {fileID: 945648475}
   - component: {fileID: 945648477}
   - component: {fileID: 945648476}
-  - component: {fileID: 945648478}
   m_Layer: 5
   m_Name: Text
   m_TagString: Untagged
@@ -6685,19 +6714,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 945648474}
   m_CullTransparentMesh: 1
---- !u!114 &945648478
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 945648474}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 068d494842f6d1548ab4d4fc1021afac, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  panel: {fileID: 1136960070}
 --- !u!1 &966811916
 GameObject:
   m_ObjectHideFlags: 0
@@ -12632,36 +12648,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1542279232}
   m_CullTransparentMesh: 1
---- !u!21 &1549224471
-Material:
-  serializedVersion: 6
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_Name: 'scene2_scaledMaterial
-
-    19952'
-  m_Shader: {fileID: 10752, guid: 0000000000000000f000000000000000, type: 0}
-  m_ShaderKeywords: 
-  m_LightmapFlags: 5
-  m_EnableInstancingVariants: 0
-  m_DoubleSidedGI: 0
-  m_CustomRenderQueue: -1
-  stringTagMap: {}
-  disabledShaderPasses: []
-  m_SavedProperties:
-    serializedVersion: 3
-    m_TexEnvs:
-    - _MainTex:
-        m_Texture: {fileID: 2800000, guid: 45efc1e2c5ca4855b83f9be6080f9651, type: 3}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    m_Ints: []
-    m_Floats: []
-    m_Colors:
-    - _Color: {r: 0.82089555, g: 0.82089555, b: 0.82089555, a: 1}
-  m_BuildTextureStacks: []
 --- !u!1 &1561585442
 GameObject:
   m_ObjectHideFlags: 0
@@ -13244,7 +13230,6 @@ MonoBehaviour:
   PanelMessage: {fileID: 1499574109}
   ButtonOk: {fileID: 798174934}
   LabelMessage: {fileID: 1760559413}
-  ObjectsForScene: {fileID: 695419074}
   BtnRunView: {fileID: 657823349}
   PanelTale: {fileID: 55100868}
   PanelTaleView: {fileID: 1697338084}
@@ -14628,7 +14613,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 1549224471}
+  - {fileID: 586181485}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

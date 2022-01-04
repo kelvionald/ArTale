@@ -33,8 +33,6 @@ public class MenuManager : MonoBehaviour
     public GameObject ButtonOk;
     public GameObject LabelMessage;
 
-    public GameObject ObjectsForScene;
-
     public GameObject BtnRunView;
     public GameObject PanelTale;
     public GameObject PanelTaleView;
@@ -151,16 +149,14 @@ public class MenuManager : MonoBehaviour
         }
 
         TaleModelObj.TaleName = TaleName;
+        DrawPreviewSceneObjects drawerPreview = GetComponent<DrawPreviewSceneObjects>();
 
         try
         {
             string modelDir = Utils.CalcModelsLoadPath();
             if (modelDir.Length != 0)
             {
-                foreach (Transform child in ObjectsForScene.transform)
-                {
-                    Destroy(child.gameObject);
-                }
+                drawerPreview.ClearObjectsForScene();
 
                 Debug.Log(modelDir);
                 var paths = Directory.GetFiles(modelDir, "*.gltf", SearchOption.TopDirectoryOnly);
@@ -169,7 +165,7 @@ public class MenuManager : MonoBehaviour
                     try
                     {
                         GameObject model = TaleModel.CreateObjFromFile(path);
-                        model.transform.SetParent(ObjectsForScene.transform);
+                        model.transform.SetParent(drawerPreview.ObjectsForScene.transform);
                         TaleModelObj.AddModel(path);
                     }
                     catch (Exception ex)
@@ -177,7 +173,8 @@ public class MenuManager : MonoBehaviour
                         Debug.Log("1" + " " + ex.Message + " " + ex.Source + " " + ex.StackTrace);
                     }
                 }
-                GetComponent<DrawPreviewSceneObjects>().RenderObjectsPreview();
+
+                drawerPreview.RenderObjectsPreview();
             }
         }
         catch (Exception ex)

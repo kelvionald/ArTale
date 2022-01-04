@@ -98,7 +98,7 @@ namespace Assets.Scripts
                 }
             }
             taleManager.UpdateVisibleScenes();
-            LoadModels(pathModels, taleManager.GetComponent<MenuManager>().ObjectsForScene, taleManager.GetComponent<DrawPreviewSceneObjects>());
+            LoadModels(pathModels, taleManager.GetComponent<DrawPreviewSceneObjects>());
             // set links
             taleManager.Links = new Dictionary<int, List<int>>();
             foreach (string kv in tale.Links)
@@ -110,7 +110,7 @@ namespace Assets.Scripts
             taleManager.RenderLinks();
         }
 
-        private void LoadModels(string modelDir, GameObject ObjectsForScene, DrawPreviewSceneObjects drawerPreview)
+        private void LoadModels(string modelDir, DrawPreviewSceneObjects drawerPreview)
         {
             var paths = Directory.GetFiles(modelDir, "*.gltf", SearchOption.TopDirectoryOnly);
             foreach (string path in paths)
@@ -118,7 +118,7 @@ namespace Assets.Scripts
                 try
                 {
                     GameObject model = CreateObjFromFile(path);
-                    model.transform.SetParent(ObjectsForScene.transform);
+                    model.transform.SetParent(drawerPreview.ObjectsForScene.transform);
                 }
                 catch (Exception ex)
                 {
