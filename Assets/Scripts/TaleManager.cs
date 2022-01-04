@@ -106,6 +106,7 @@ public class TaleManager : MonoBehaviour
 
     public void ShowSceneById(int id)
     {
+        Debug.Log("ShowSceneById " + id);
         foreach (Transform btn in PanelScenesGraph.transform)
         {
             var btnScene = btn.gameObject.GetComponent<ButtonScene>();
@@ -113,10 +114,16 @@ public class TaleManager : MonoBehaviour
             {
                 btnScene.IsCurrent = true;
                 SelectedBtnScene = btnScene;
-                break;
+                btnScene.Scene.SetActive(true);
+                //break;
+            }
+            else if (btnScene && btnScene.Scene)
+            {
+                btnScene.Scene.SetActive(false);
             }
         }
-        BtnShowOnClick();
+        //UpdateVisibleScenes();
+        //BtnShowOnClick();
     }
 
     public void RenderLinks()
@@ -201,6 +208,7 @@ public class TaleManager : MonoBehaviour
         LinkFirstScene = -1;
         IsModeLink = false;
         LastSceneNumber = 1;
+        SelectedBtnScene = null;
         CurrentScene = null;
         foreach (Transform sc in ImgTarget.transform)
         {
@@ -218,14 +226,8 @@ public class TaleManager : MonoBehaviour
         drawerPreview.ClearObjectsForScene();
         foreach (Transform sc in drawerPreview.ContentScroll.transform)
         {
-            Debug.Log("destroy content");
-            Debug.Log(sc.gameObject);
-            Debug.Log(sc.gameObject.GetComponent<PreviewSceneObject>().sceneObject);
             Destroy(sc.gameObject);
             Destroy(sc.gameObject.GetComponent<PreviewSceneObject>().sceneObject);
-            Debug.Log("destroyied content");
-            Debug.Log(sc.gameObject.GetComponent<PreviewSceneObject>().sceneObject);
-            Debug.Log(sc.gameObject);
         }
         drawerPreview.ClearObjectsForScene();
     }

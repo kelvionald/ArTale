@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Net;
+using System.Net.Security;
 using System.Text;
 using System.Threading.Tasks;
 using UnityEngine;
@@ -18,6 +20,16 @@ namespace Assets.Scripts
         public static string PathModelsAndroid = PathRootAndroid + "Models/"; // for load models android
 
         public static string HelpUrl = "https://nlix.ru/ArTale/Materials.pdf";
+
+        public static void DisableSSL()
+        {
+            //ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
+            ServicePointManager.ServerCertificateValidationCallback = new RemoteCertificateValidationCallback(
+                delegate
+                { return true; }
+            );
+        }
+
         public static string UploadUrl = "https://nlix.ru/ArTale/upload.php";
 
         public static bool IsViewMode = false;

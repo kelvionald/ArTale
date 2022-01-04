@@ -4,6 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Net;
+using System.Net.Security;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.Android;
@@ -124,10 +125,25 @@ public class MenuManager : MonoBehaviour
 
     private void OnClickLoadFromServer()
     {
-        string link = TaleLinkInput.GetComponent<InputField>().text;
-        string taleName = TaleModel.Download(link);
-        PanelMenu = PanelMainMenu;
-        GetComponent<ViewManager>().Run(taleName);
+        try
+        {
+            Utils.DisableSSL();
+            string link = TaleLinkInput.GetComponent<InputField>().text;
+            string taleName = TaleModel.Download(link);
+
+            // load scenes
+            TaleModel TaleModelObj = new TaleModel();
+            TaleManager taleManager = GetComponent<TaleManager>();
+            taleManager.TaleName = taleName;
+            taleManager.CurrentScene = null;
+            TaleModelObj.Load(taleName, taleManager);
+
+            RunView();
+        }
+        catch (Exception ex)
+        {
+            ShowMessage(ex.Message + "  " + ex.StackTrace);
+        }
     }
 
     private void OnClickOk()

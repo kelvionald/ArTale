@@ -4,6 +4,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Net;
+using System.Net.Security;
 using System.Text;
 using UnityEngine;
 using UnityEngine.UI;
@@ -19,6 +20,7 @@ public class Share : MonoBehaviour
     {
         GameObject camera = GameObject.Find("ARCamera");
         camera.GetComponent<MenuManager>().TaleLinkOutput.GetComponent<InputField>().text = "";
+        Utils.DisableSSL();
         using (WebClient client = new WebClient())
         {
             try
@@ -43,7 +45,7 @@ public class Share : MonoBehaviour
             }
             catch (Exception ex)
             {
-                camera.GetComponent<MenuManager>().ShowMessage(ex.StackTrace + " " + ex.Message);
+                camera.GetComponent<MenuManager>().ShowMessage(ex.Message + "  " + ex.StackTrace);
             }
         }
     }
