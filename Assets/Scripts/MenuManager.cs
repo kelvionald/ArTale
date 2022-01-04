@@ -3,6 +3,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
+using System.Net;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.Android;
@@ -21,10 +22,10 @@ public class MenuManager : MonoBehaviour
 
     public GameObject TalesListItem;
 
-    public GameObject BtnSaveTaleOnServer;
     public GameObject TaleLinkOutput;
     public GameObject ButtonCopyLink;
 
+    public GameObject TaleLinkInput;
     public GameObject BtnLoadTaleFromServer;
 
     public GameObject ButtonLoadModels;
@@ -63,7 +64,6 @@ public class MenuManager : MonoBehaviour
 
         ButtonLoadModels.GetComponent<Button>().onClick.AddListener(LoadModels);
 
-        BtnSaveTaleOnServer.GetComponent<Button>().onClick.AddListener(OnClickSaveOnServer);
         BtnLoadTaleFromServer.GetComponent<Button>().onClick.AddListener(OnClickLoadFromServer);
 
         ButtonOk.GetComponent<Button>().onClick.AddListener(OnClickOk);
@@ -125,12 +125,10 @@ public class MenuManager : MonoBehaviour
 
     private void OnClickLoadFromServer()
     {
-        
-    }
-
-    private void OnClickSaveOnServer()
-    {
-        
+        string link = TaleLinkInput.GetComponent<InputField>().text;
+        string taleName = TaleModel.Download(link);
+        PanelMenu = PanelMainMenu;
+        GetComponent<ViewManager>().Run(taleName);
     }
 
     private void OnClickOk()

@@ -16,9 +16,10 @@ public class Share : MonoBehaviour
 
     private void ShareHandler()
     {
+        GameObject camera = GameObject.Find("ARCamera");
+        camera.GetComponent<MenuManager>().TaleLinkOutput.GetComponent<InputField>().text = "";
         using (WebClient client = new WebClient())
         {
-            GameObject camera = GameObject.Find("ARCamera");
             string taleName = camera.GetComponent<TaleManager>().TaleName;
             string filepath = TaleModel.ZipTale(taleName);
 

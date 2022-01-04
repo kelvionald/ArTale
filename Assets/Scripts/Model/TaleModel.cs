@@ -10,6 +10,7 @@ using UnityEngine;
 using Siccity.GLTFUtility;
 using UnityEngine.UI;
 using System.IO.Compression;
+using System.Net;
 
 namespace Assets.Scripts
 {
@@ -121,6 +122,29 @@ namespace Assets.Scripts
                 taleManager.Links.Add(Convert.ToInt32(ab[0]), b);
             }
             taleManager.RenderLinks();
+        }
+
+        public static string Download(string link)
+        {
+            string[] parts = link.Split(new char[] { '/' });
+            string taleNameZip = parts[parts.Length - 1];
+            string taleName = taleNameZip.Split(new char[] { '.' })[0];
+            string pathTaleZip = Utils.PathSaves + taleNameZip;
+            WebClient Client = new WebClient();
+            if (File.Exists(pathTaleZip))
+            {
+                File.Delete(pathTaleZip);
+            }
+            Client.DownloadFile(link, pathTaleZip);
+
+            string pathTale = Utils.PathSaves + taleName + "/";
+            if (Directory.Exists(pathTale))
+            {
+                Directory.Delete(pathTale, true);
+            }
+            ZipFile.ExtractToDirectory(pathTaleZip, pathTale);
+
+            return taleName;
         }
 
         private void LoadModels(string modelDir, DrawPreviewSceneObjects drawerPreview)
